@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { MonogramPanel } from "@/components/about/MonogramPanel";
+import { PortraitFigure } from "@/components/about/PortraitFigure";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { CtaBand } from "@/components/ui/CtaBand";
@@ -25,7 +25,7 @@ export default function AboutPage() {
       <section className="container-page grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <div className="reveal">
-            <MonogramPanel />
+            <PortraitFigure priority />
           </div>
         </div>
 

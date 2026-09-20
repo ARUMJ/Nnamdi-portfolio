@@ -1,4 +1,4 @@
-import { MonogramPanel } from "@/components/about/MonogramPanel";
+import { PortraitFigure } from "@/components/about/PortraitFigure";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { site } from "@/data/site";
@@ -14,7 +14,7 @@ export function AboutPreview() {
       <div className="container-page grid gap-12 py-20 md:py-28 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <div className="reveal">
-            <MonogramPanel />
+            <PortraitFigure />
           </div>
         </div>
 
