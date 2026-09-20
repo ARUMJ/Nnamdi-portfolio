@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — warm paper neutrals, deep ink, one evergreen accent */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  --color-paper: #f5f4ef;
+  --color-paper-deep: #eceae0;
+  --color-ink: #1a1c1f;
+  --color-ink-2: #24272b;
+  --color-ink-deep: #101214;
+  --color-line: #d9d6ca;
+  --color-line-dark: #2c3034;
+  --color-muted: #585c63;
+  --color-muted-dark: #a5a9ad;
+  --color-accent: #1f4a3c;
+  --color-accent-deep: #16382d;
+}
+
+@theme {
+  /* Self-hosted variable fonts (see src/app/layout.tsx imports). */
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "Instrument Sans Variable", "Helvetica Neue", system-ui, sans-serif;
+}
+
+/* ------------------------------- base ------------------------------ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  /* Visible, consistent keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+/* ---------------------------- components --------------------------- */
+
+@layer components {
+  /* The single width/spacing rhythm for the whole site. */
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Skip link — hidden until it receives keyboard focus. */
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-transform duration-200 focus-visible:translate-y-0;
+  }
+
+  /* Cinematic textures for media placeholders. */
+  .texture-grid {
+    background-image:
+      linear-gradient(to right, rgb(245 244 239 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(245 244 239 / 0.045) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+
+  .texture-noise {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
+  /* Keyboard focus on dark sections — the accent ring is low contrast there. */
+  .on-dark :focus-visible {
+    outline-color: var(--color-paper);
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/* Motion — subtle only: a load-in for the hero, a CSS scroll-driven    */
+/* reveal (zero JavaScript) where supported, and one gentle pulse.      */
+/* Everything lives behind prefers-reduced-motion.                      */
+/* -------------------------------------------------------------------- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0.001;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-enter {
+    animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-enter-1 {
+    animation-delay: 0.06s;
+  }
+
+  .hero-enter-2 {
+    animation-delay: 0.14s;
+  }
+
+  .hero-enter-3 {
+    animation-delay: 0.22s;
+  }
+
+  .hero-enter-4 {
+    animation-delay: 0.3s;
+  }
+
+  .pulse-dot {
+    animation: pulse-dot 2.8s ease-in-out infinite;
+  }
+
+  /* Scroll-driven reveal: pure CSS, no JavaScript, and only where the
+     browser supports it. Unsupported browsers simply show static content. */
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
