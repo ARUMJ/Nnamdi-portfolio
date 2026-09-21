@@ -8,6 +8,29 @@ const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
 const base = process.env.BASE_URL || "http://localhost:3000";
+const films = [
+  {
+    slug: "prince-m-furnishing-concept",
+    title: "Prince M Furnishing Concept",
+    prefix: "Prince M website",
+  },
+  {
+    slug: "d-connect-delivery-services",
+    title: "D-Connect Delivery Services",
+    prefix: "D-Connect website",
+  },
+  {
+    slug: "purenest-cleaning-co",
+    title: "PureNest Cleaning Co.",
+    prefix: "PureNest fictional",
+  },
+  { slug: "stayora", title: "Stayora", prefix: "Stayora frontend demo" },
+  {
+    slug: "pnk-clarean-peekan",
+    title: "PNK / Clarean Peekan",
+    prefix: "PNK / Clarean development preview",
+  },
+];
 const artifacts =
   process.env.MEDIA_TEST_ARTIFACTS ||
   fs.mkdtempSync(path.join(os.tmpdir(), "build04-"));
@@ -84,8 +107,20 @@ const launch = () =>
     });
     await page.goto(base);
     await page.waitForTimeout(700);
-    await page.evaluate(() => scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(300);
+    for (const article of await page.locator("article").all()) {
+      await article.scrollIntoViewIfNeeded();
+      const img = article.locator("img");
+      await img.evaluate((e) => e.decode());
+      assert(
+        await img.evaluate(
+          (e) => e.naturalWidth > 0 && e.getBoundingClientRect().height > 100,
+        ),
+      );
+      assert(
+        await article.getByRole("button", { name: /^Play video:/ }).isVisible(),
+      );
+    }
+    assert.equal(await page.locator("article").count(), films.length);
     assert.deepEqual(mp4, []);
     assert.equal(await page.locator("video").count(), 0);
     checks("reduced-motion", { width, passed: true });
@@ -93,11 +128,7 @@ const launch = () =>
   }
   // Every final media reference and byte-range serving.
   const p = await b.newPage();
-  for (const slug of [
-    "d-connect-delivery-services",
-    "prince-m-furnishing-concept",
-    "purenest-cleaning-co",
-  ])
+  for (const { slug } of films)
     for (const file of [
       "showcase.mp4",
       "showcase-poster.jpg",
@@ -124,95 +155,118 @@ const launch = () =>
   });
   await p.close();
   // Real-time complete decode/playback, one desktop/mobile context per film.
-  await Promise.all(
-    ["Prince M website", "D-Connect website", "PureNest fictional"].flatMap(
-      (name) =>
-        [1440, 390].map(async (width) => {
-          const ctx = await b.newContext({ viewport: { width, height: 900 } });
-          const p = await ctx.newPage();
-          await p.goto(base + "/work");
-          const button = p.getByRole("button", {
-            name: new RegExp("Play video: " + name),
-          });
-          await button.click();
-          const v = p.locator("video");
-          await v.evaluate(
-            (v) =>
-              new Promise((resolve, reject) => {
-                const timer = setTimeout(
-                  () => reject(new Error("Playback timeout")),
-                  30000,
-                );
-                v.addEventListener(
-                  "ended",
-                  () => {
-                    clearTimeout(timer);
-                    resolve();
-                  },
-                  { once: true },
-                );
-                v.addEventListener(
-                  "error",
-                  () => reject(new Error(v.error.message)),
-                  { once: true },
-                );
-              }),
-          );
-          const result = await v.evaluate((v) => ({
-            ended: v.ended,
-            time: v.currentTime,
-            duration: v.duration,
-            muted: v.muted,
-            quality: v.getVideoPlaybackQuality().toJSON?.() ?? {
-              total: v.getVideoPlaybackQuality().totalVideoFrames,
-              dropped: v.getVideoPlaybackQuality().droppedVideoFrames,
-            },
-          }));
-          assert.equal(result.ended, true);
-          checks("complete-playback", { name, width, ...result });
-          await ctx.close();
-        }),
-    ),
-  );
-  // Failure chain: failed video and poster -> gallery still; all images -> placeholder.
-  for (const all of [false, true]) {
-    const ctx = await b.newContext();
-    const p = await ctx.newPage();
-    await p.route("**/*.mp4", (r) => r.abort());
-    await p.route("**/_next/image?**", (r) => {
-      const url = decodeURIComponent(r.request().url());
-      if (
-        url.includes("showcase-poster.jpg") ||
-        (all && url.includes("/media/projects/"))
-      )
-        return r.abort();
-      return r.continue();
-    });
-    await p.goto(base + "/work");
-    await p.waitForTimeout(800);
-    await p.getByRole("button", { name: /Play video: Prince M/ }).click();
-    await p.waitForTimeout(800);
-    if (!all) {
-      const img = p.locator('img[alt^="Prince M desktop homepage"]');
-      assert.equal(await img.count(), 1);
-      assert(
-        await img.evaluate(
-          (e) =>
-            e.complete &&
-            e.naturalWidth > 0 &&
-            e.getBoundingClientRect().height > 100,
-        ),
-      );
-    } else {
-      assert(
-        await p
-          .getByText("Image unavailable", { exact: true })
-          .first()
-          .isVisible(),
-      );
+  for (const { prefix: name } of films) {
+    await Promise.all(
+      [1440, 390].map(async (width) => {
+        const ctx = await b.newContext({ viewport: { width, height: 900 } });
+        const p = await ctx.newPage();
+        await p.goto(base + "/work");
+        const button = p.getByRole("button", {
+          name: new RegExp("Play video: " + name),
+        });
+        await button.scrollIntoViewIfNeeded();
+        await button.focus();
+        await p.keyboard.press("Enter");
+        const v = p.locator("video");
+        await v.evaluate(
+          (v) =>
+            new Promise((resolve, reject) => {
+              const timer = setTimeout(
+                () => reject(new Error("Playback timeout")),
+                30000,
+              );
+              v.addEventListener(
+                "ended",
+                () => {
+                  clearTimeout(timer);
+                  resolve();
+                },
+                { once: true },
+              );
+              v.addEventListener(
+                "error",
+                () => reject(new Error(v.error.message)),
+                { once: true },
+              );
+            }),
+        );
+        const result = await v.evaluate((v) => ({
+          ended: v.ended,
+          time: v.currentTime,
+          duration: v.duration,
+          muted: v.muted,
+          controls: v.controls,
+          inline: v.playsInline,
+          videoWidth: v.videoWidth,
+          height: v.videoHeight,
+          quality: v.getVideoPlaybackQuality().toJSON?.() ?? {
+            total: v.getVideoPlaybackQuality().totalVideoFrames,
+            dropped: v.getVideoPlaybackQuality().droppedVideoFrames,
+          },
+        }));
+        assert.equal(result.ended, true);
+        assert.equal(result.muted, true);
+        assert.equal(result.controls, true);
+        assert.equal(result.inline, true);
+        assert.equal(result.duration, 21);
+        assert.equal(result.videoWidth, 1280);
+        assert.equal(result.height, 800);
+        checks("complete-playback", { name, width, ...result });
+        await ctx.close();
+      }),
+    );
+  }
+  // Test every project's complete fallback chain, with deliberate request failures.
+  for (const film of films) {
+    for (const mode of ["poster", "still", "placeholder"]) {
+      const ctx = await b.newContext();
+      const p = await ctx.newPage();
+      await p.route("**/*.mp4", (r) => r.abort());
+      if (mode !== "poster")
+        await p.route("**/_next/image?**", (r) => {
+          const url = decodeURIComponent(r.request().url());
+          if (
+            url.includes("showcase-poster.jpg") ||
+            (mode === "placeholder" && url.includes("/media/projects/"))
+          )
+            return r.abort();
+          return r.continue();
+        });
+      await p.goto(base + "/work");
+      const article = p
+        .locator("article")
+        .filter({
+          has: p.getByRole("heading", { name: film.title, exact: true }),
+        });
+      await article.getByRole("button", { name: /^Play video:/ }).click();
+      await p.waitForTimeout(600);
+      if (mode === "placeholder") {
+        assert(
+          await article
+            .getByText("Image unavailable", { exact: true })
+            .isVisible(),
+        );
+      } else {
+        const img = article.locator("img");
+        assert.equal(await img.count(), 1);
+        const src = decodeURIComponent(await img.getAttribute("src"));
+        assert(
+          src.includes(
+            mode === "poster" ? "showcase-poster.jpg" : "desktop.jpg",
+          ),
+        );
+        assert(
+          await img.evaluate(
+            (e) =>
+              e.complete &&
+              e.naturalWidth > 0 &&
+              e.getBoundingClientRect().height > 100,
+          ),
+        );
+      }
+      checks("failure-chain", { project: film.slug, mode, passed: true });
+      await ctx.close();
     }
-    checks("failure-chain", { allImagesFailed: all, passed: true });
-    await ctx.close();
   }
   // Ambient refusal and no-codec fallback.
   for (const mode of ["blocked", "no-codec"]) {
@@ -277,9 +331,18 @@ const launch = () =>
     assert.deepEqual(errors, []);
     assert.equal(
       await p.getByText("Media coming soon", { exact: true }).count(),
-      2,
+      0,
     );
-    checks("work-scroll", { width, errors, videoRequests: requests.length });
+    assert.equal(
+      await p.getByRole("button", { name: /^Play video:/ }).count(),
+      films.length,
+    );
+    checks("work-scroll", {
+      width,
+      errors,
+      videoRequests: requests.length,
+      films: films.length,
+    });
     await ctx.close();
   }
   // Mobile navigation actually follows a link, retaining WhatsApp URL.
@@ -335,6 +398,27 @@ const launch = () =>
           .map((r) => r.transferSize),
       })),
     );
+    const video = p.locator("video").first();
+    await p.evaluate(() => scrollTo({ top: 1800, behavior: "instant" }));
+    await p.waitForTimeout(400);
+    assert(await video.evaluate((v) => v.paused));
+    await p.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+    await p.waitForTimeout(600);
+    assert.equal(await video.evaluate((v) => v.paused), false);
+    await p.evaluate(() => {
+      Object.defineProperty(document, "hidden", {
+        configurable: true,
+        get: () => true,
+      });
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    await p.waitForTimeout(200);
+    assert(await video.evaluate((v) => v.paused));
+    checks("ambient-visibility", {
+      offscreenPause: true,
+      resume: true,
+      hiddenPause: true,
+    });
     await p.emulateMedia({ reducedMotion: "reduce" });
     await p.waitForTimeout(300);
     assert.equal(await p.locator("video").count(), 0);

@@ -1,5 +1,9 @@
 # Build 04 — real interface films
 
+> **Revised:** all five projects now have films. The initial main-only Stayora/PNK
+> assessment below was superseded by a complete branch/history audit. See
+> [Build 04 revision](build-04-revision.md) for source SHAs, assets and five-film validation.
+
 Produced and validated 21 September 2026. Base: `6d7a9d0b94d814165a8f612c3d7c4bc92390e5c9`
 (Build 03, verified against fetched `origin/main`). Working branch:
 `arena/01a0c56f-nnamdi-portfolio`. No new case-study routes or redesign.
@@ -11,8 +15,8 @@ Produced and validated 21 September 2026. Base: `6d7a9d0b94d814165a8f612c3d7c4bc
 | [D-Connect](https://github.com/ARUMJ/d-connect-delivery-services) | `ac772a7b08df76e46bff0e8808a0700fc684a990` | Film: implemented homepage, categories, product detail and mobile cards. Prototype catalogue; WhatsApp enquiries, not a checkout/payment/tracking system. |
 | [Prince M](https://github.com/ARUMJ/prince-m-furnishing-concept) | `7c25816b1038cc73deb97885323d8b35f83475c0` | Film: implemented homepage, service triptych, Interior Design chapter and mobile homepage. Existing renders are illustrative, not photographs of completed client projects. |
 | [PureNest](https://github.com/ARUMJ/purenest-cleaning-website) | `da7ff4df53c4bd1a70d5427998c16f88ae76c5f7` | Film: implemented homepage, services, Deep Cleaning route and mobile FAQ. **Fictional concept — not client work.** No quote is submitted, no business results or testimonials are claimed. |
-| [Stayora](https://github.com/ARUMJ/stayora) | `97871513500fbdecf7e0b78f4fa73003a2f1cb97` | No film. Only one page: “Your next stay starts here / Phase 2 — Global navigation complete.” Navigation alone does not support a credible property/booking showcase. Existing placeholder retained. |
-| [PNK / Clarean](https://github.com/ARUMJ/pnk-enterprises-website) | `522ded38ab099b6e80f29f9938d6cfaeeb97f116` | No film. Repository contains README and `.gitignore`, no implemented UI or package manifest. Existing placeholder retained. |
+| [Stayora](https://github.com/ARUMJ/stayora) | `97871513500fbdecf7e0b78f4fa73003a2f1cb97` | Initial `main` inspection only. **Superseded:** an existing Arena branch contains implemented discovery UI; its film is now integrated (see revision report). |
+| [PNK / Clarean](https://github.com/ARUMJ/pnk-enterprises-website) | `522ded38ab099b6e80f29f9938d6cfaeeb97f116` | Initial `main` inspection only. **Superseded:** `dev` contains a multi-page brand/product website; its film is now integrated (see revision report). |
 
 ### Deployment access and local capture
 
@@ -90,8 +94,7 @@ are independent real browser captures, available to future galleries and fallbac
 - `src/data/project-media.ts` centralizes the three film descriptors and gallery
   paths. No media URLs are scattered through components.
 - `src/data/projects.ts` populates `heroMedia`, `featuredMedia`, and `gallery`.
-  Prince M is first/featured, followed by D-Connect and PureNest. Unfinished projects
-  retain their placeholders. PureNest's original fictional-project disclosure is
+  Prince M is first/featured, followed by D-Connect and PureNest. The revision adds Stayora and PNK films from their implemented non-main branches. PureNest's original fictional-project disclosure is
   unchanged, with additional disclosure in the caption and film itself.
 - `src/data/media.ts` references the **same** Prince M file for the homepage hero.
   Only this instance has ambient playback intent. There is no duplicate showreel.

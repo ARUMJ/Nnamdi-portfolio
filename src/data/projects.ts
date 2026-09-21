@@ -1,7 +1,7 @@
 import type { Project } from "@/lib/types";
 import { projectFilms, projectStills } from "./project-media";
 
-/** Verified project content only; unfinished projects retain Build 03 placeholders. */
+/** Five actual interface films, with factual prototype/development disclosures. */
 export const projects: Project[] = [
   {
     id: "proj-04",
@@ -53,11 +53,31 @@ export const projects: Project[] = [
     id: "proj-01",
     slug: "stayora",
     title: "Stayora",
+    category: "Accommodation · Frontend prototype",
+    shortDescription: "A responsive accommodation-discovery demo. Mock listings, prices and ratings — not a live booking platform.",
+    heroMedia: projectFilms.stayora,
+    featuredMedia: projectFilms.stayora,
+    gallery: projectStills(
+      "stayora",
+      "Stayora frontend demo homepage: featured mock property cards with sample prices and ratings.",
+      "Stayora frontend demo at 390px: a mock Mountain-view cabin detail page with sample host information.",
+    ),
+    githubUrl: "https://github.com/ARUMJ/stayora/tree/arena/019fdeda-stayora",
   },
   {
     id: "proj-05",
     slug: "pnk-clarean-peekan",
     title: "PNK / Clarean Peekan",
+    category: "Household products · Development preview",
+    shortDescription: "An implemented product-category website using supplied brand and product assets. Development preview; not a production store.",
+    heroMedia: projectFilms.pnk,
+    featuredMedia: projectFilms.pnk,
+    gallery: projectStills(
+      "pnk-clarean-peekan",
+      "PNK / Clarean development-preview homepage, with its supplied brand mark and household-product photographs.",
+      "PNK / Clarean mobile Vacuum Flasks category page, with a supplied food-jar photograph and enquiry link.",
+    ),
+    githubUrl: "https://github.com/ARUMJ/pnk-enterprises-website/tree/dev",
   },
 ];
 

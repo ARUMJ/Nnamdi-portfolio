@@ -1,6 +1,6 @@
 import type { ProjectImage, ProjectVideo } from "@/lib/types";
 
-/** Final browser-captured media. Provenance and shot lists: docs/build-04-media.md. */
+/** Final browser-captured media. Provenance: docs/build-04-media.md and docs/build-04-revision.md. */
 function showcase(slug: string, alt: string, caption: string): ProjectVideo {
   return {
     kind: "video",
@@ -17,6 +17,16 @@ function showcase(slug: string, alt: string, caption: string): ProjectVideo {
 }
 
 export const projectFilms = {
+  stayora: showcase(
+    "stayora",
+    "Stayora frontend demo: featured mock property cards, destination browsing, Asheville results, and a mobile property page.",
+    "Actual frontend prototype. Listings, prices, ratings and host details are mock data; no live booking, payment or accounts are demonstrated.",
+  ),
+  pnk: showcase(
+    "pnk-clarean-peekan",
+    "PNK / Clarean development preview: branded homepage, product categories, supplied flask photographs, and the mobile Vacuum Flasks page.",
+    "Actual development-branch website, not a production store. Supplied product photography and labelled illustrative category images; enquiries, not checkout.",
+  ),
   princeM: showcase(
     "prince-m-furnishing-concept",
     "Prince M website: black-and-gold homepage, three service panels, Interior Design section, and the mobile homepage.",
