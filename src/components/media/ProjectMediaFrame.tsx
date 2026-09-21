@@ -36,9 +36,9 @@ export function ProjectMediaFrame({ project, className = "" }: ProjectMediaFrame
   return (
     <MediaPlaceholder
       media="video"
-      kicker={project.category ?? "Project"}
+      kicker="Project preview"
       title={project.title}
-      label="Film & case study coming soon"
+      label="Media coming soon"
       className={className}
     />
   );

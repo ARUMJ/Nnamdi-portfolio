@@ -87,7 +87,7 @@
 
 /* -------------------------------------------------------------------- */
 /* Motion — subtle only: a load-in for the hero, a CSS scroll-driven    */
-/* reveal (zero JavaScript) where supported, and one gentle pulse.      */
+/* reveal (zero JavaScript) where supported. No looping animation.     */
 /* Everything lives behind prefers-reduced-motion.                      */
 /* -------------------------------------------------------------------- */
 
@@ -113,16 +113,6 @@
   }
 }
 
-@keyframes pulse-dot {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .hero-enter {
     animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -144,10 +134,6 @@
     animation-delay: 0.3s;
   }
 
-  .pulse-dot {
-    animation: pulse-dot 2.8s ease-in-out infinite;
-  }
-
   /* Scroll-driven reveal: pure CSS, no JavaScript, and only where the
      browser supports it. Unsupported browsers simply show static content. */
   @supports (animation-timeline: view()) {
@@ -156,5 +142,15 @@
       animation-timeline: view();
       animation-range: entry 0% entry 40%;
     }
+  }
+}
+
+/* Keep navigation, hover, and focus transitions instant for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

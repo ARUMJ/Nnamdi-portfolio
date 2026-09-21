@@ -11,13 +11,13 @@ import { projects } from "@/data/projects";
 export function SelectedWork() {
   return (
     <section aria-labelledby="selected-work-heading" className="border-t border-line">
-      <div className="container-page py-20 md:py-28">
+      <div className="container-page py-16 sm:py-20 md:py-28">
         <div className="reveal flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             id="selected-work-heading"
             eyebrow="Selected work"
-            title="Projects"
-            lead="A selection of current projects. Case studies, project films, and live demonstrations are being prepared."
+            title="Digital solutions & concepts"
+            lead="A selection of digital projects and concepts I’ve worked on. Project media and further details are coming soon."
           />
           <ButtonLink
             href="/work"
