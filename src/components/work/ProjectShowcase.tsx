@@ -10,6 +10,10 @@ interface ProjectShowcaseProps {
  * Premium showcase layout: the first project renders as a wide cinematic
  * feature frame, the remainder as a two-column grid.
  * Used by the homepage preview and the /work page.
+ *
+ * Media frames carry a subtle editorial zoom on hover so project media
+ * reads as part of the project story; the motion is disabled entirely
+ * under prefers-reduced-motion (global transition rule).
  */
 export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   if (projects.length === 0) return null;
@@ -21,6 +25,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
       <article className="reveal min-w-0">
         <ProjectMediaFrame
           project={featured}
+          hoverZoom
           className="aspect-[16/10] rounded-xl sm:aspect-[16/9] lg:aspect-[21/9]"
         />
         <ProjectMeta project={featured} className="mt-4" />
@@ -30,7 +35,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:gap-x-8">
           {rest.map((project) => (
             <article key={project.id} className="reveal min-w-0">
-              <ProjectMediaFrame project={project} className="aspect-[4/3] rounded-xl" />
+              <ProjectMediaFrame project={project} hoverZoom className="aspect-[4/3] rounded-xl" />
               <ProjectMeta project={project} className="mt-4" />
             </article>
           ))}
