@@ -26,7 +26,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         <ProjectMediaFrame
           project={featured}
           hoverZoom
-          className="aspect-[16/10] rounded-xl sm:aspect-[16/9] lg:aspect-[21/9]"
+          className="aspect-[16/10] rounded-xl"
         />
         <ProjectMeta project={featured} className="mt-4" />
       </article>
@@ -35,7 +35,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:gap-x-8">
           {rest.map((project) => (
             <article key={project.id} className="reveal min-w-0">
-              <ProjectMediaFrame project={project} hoverZoom className="aspect-[4/3] rounded-xl" />
+              <ProjectMediaFrame project={project} hoverZoom className={project.featuredMedia ? "aspect-[16/10] rounded-xl" : "aspect-[4/3] rounded-xl"} />
               <ProjectMeta project={project} className="mt-4" />
             </article>
           ))}

@@ -8,7 +8,7 @@ import { projects } from "@/data/projects";
 export const metadata: Metadata = {
   title: "Work",
   description:
-    "Projects by Arum Jonathan Nnamdi — Stayora, D-Connect Delivery Services, PureNest Cleaning Co., Prince M Furnishing Concept, PNK / Clarean Peekan. Case studies and project films coming soon.",
+    "Projects by Arum Jonathan Nnamdi — Stayora, D-Connect Delivery Services, PureNest Cleaning Co., Prince M Furnishing Concept, PNK / Clarean Peekan. Watch real interface films from completed websites and concepts.",
 };
 
 export default function WorkPage() {
@@ -17,7 +17,7 @@ export default function WorkPage() {
       <PageHeader
         eyebrow="Work"
         title="Projects"
-        lead="A growing selection of projects. Full case studies, project films, and live demonstrations are being prepared for each one."
+        lead="Real interfaces, in motion. Watch selected website showcases, including clearly labelled prototypes and fictional concepts."
       />
 
       <section aria-label="Project list" className="container-page py-16 md:py-24">

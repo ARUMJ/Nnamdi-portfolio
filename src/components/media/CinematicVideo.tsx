@@ -5,12 +5,15 @@ import { useEffect, useRef, useState } from "react";
 
 import { useInView } from "@/hooks/useInView";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import type { ProjectVideo } from "@/lib/types";
+import type { ProjectImage, ProjectVideo } from "@/lib/types";
 
 import { MediaPlaceholder } from "./MediaPlaceholder";
+import { ResponsiveImage } from "./ResponsiveImage";
 
 interface CinematicVideoProps {
   video: ProjectVideo;
+  /** First real gallery still, used if the poster also fails. */
+  fallbackImage?: ProjectImage;
   /** Labelling context for the play control and accessible names. */
   title: string;
   /** Caller supplies sizing (e.g. "aspect-[16/9] rounded-xl"). */
@@ -62,6 +65,7 @@ function releaseAmbientPlayback(element: HTMLVideoElement) {
  */
 export function CinematicVideo({
   video,
+  fallbackImage,
   title,
   className = "",
   sizes = "(min-width: 1024px) 50vw, 100vw",
@@ -69,9 +73,13 @@ export function CinematicVideo({
   hoverZoom = false,
 }: CinematicVideoProps) {
   const reducedMotion = usePrefersReducedMotion();
-  const { ref: viewRef, inView, hasEnteredView } = useInView<HTMLDivElement>();
+  const { ref: viewRef, inView, hasEnteredView } = useInView<HTMLDivElement>({
+    rootMargin: "0px",
+  });
 
   const [failed, setFailed] = useState(false);
+  const [posterFailed, setPosterFailed] = useState(false);
+  const poster = posterFailed ? undefined : video.poster;
   const [supportsVideo, setSupportsVideo] = useState(true);
   const [userStarted, setUserStarted] = useState(false);
   const [ambientBlocked, setAmbientBlocked] = useState(false);
@@ -150,15 +158,20 @@ export function CinematicVideo({
   if (unavailable) {
     return (
       <div className={rootClasses}>
-        {video.poster ? (
+        {poster ? (
           <Image
-            src={video.poster}
+            src={poster}
             alt={description}
             fill
             sizes={sizes}
             priority={priority}
+            onError={() => setPosterFailed(true)}
             className="object-cover"
           />
+        ) : fallbackImage ? (
+          <div className="absolute inset-0">
+            <ResponsiveImage image={fallbackImage} title={title} sizes={sizes} className="h-full w-full" />
+          </div>
         ) : (
           <div className="absolute inset-0">
             <MediaPlaceholder
@@ -183,7 +196,7 @@ export function CinematicVideo({
         <video
           className="absolute inset-0 h-full w-full object-cover"
           src={video.src}
-          poster={video.poster}
+          poster={poster}
           controls={video.controls ?? true}
           autoPlay
           playsInline
@@ -204,19 +217,24 @@ export function CinematicVideo({
   /* ------------------------------------------------------------ */
   return (
     <div ref={viewRef} className={rootClasses}>
-      {video.poster ? (
+      {poster ? (
         <Image
-          src={video.poster}
-          alt=""
+          src={poster}
+          alt={description}
           fill
           sizes={sizes}
           priority={priority}
+          onError={() => setPosterFailed(true)}
           className={`object-cover ${
             hoverZoom
               ? "transition-transform duration-700 ease-out group-hover/cv:scale-[1.03]"
               : ""
           }`.trim()}
         />
+      ) : fallbackImage ? (
+        <div className="absolute inset-0">
+          <ResponsiveImage image={fallbackImage} title={title} sizes={sizes} className="h-full w-full" />
+        </div>
       ) : (
         <div className="absolute inset-0">
           <MediaPlaceholder
@@ -261,7 +279,7 @@ export function CinematicVideo({
           className="group/play absolute inset-0 z-20 block h-full w-full"
           aria-label={`Play video: ${description}`}
         >
-          <span className="absolute inset-0 bg-ink-deep/40 transition-colors duration-200 group-hover/play:bg-ink-deep/25" />
+          <span className="absolute inset-0 bg-ink-deep/15 transition-colors duration-200 group-hover/play:bg-ink-deep/5" />
           <span className="absolute inset-0 flex items-center justify-center">
             <span
               aria-hidden="true"

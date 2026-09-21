@@ -1,5 +1,5 @@
 import type { Project, ProjectMedia } from "@/lib/types";
-import { isVideoMedia } from "@/lib/types";
+import { isImageMedia, isVideoMedia } from "@/lib/types";
 
 import { CinematicVideo } from "./CinematicVideo";
 import { MediaCaption } from "./MediaCaption";
@@ -66,6 +66,7 @@ export function ProjectMediaFrame({
   const frame = isVideoMedia(media) ? (
     <CinematicVideo
       video={media}
+      fallbackImage={project.gallery?.find(isImageMedia)}
       title={project.title}
       className={className}
       sizes={sizes}

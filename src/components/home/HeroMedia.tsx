@@ -5,7 +5,7 @@ import { ResponsiveImage } from "@/components/media/ResponsiveImage";
 import { siteMedia } from "@/data/media";
 import { isVideoMedia } from "@/lib/types";
 
-const frameClass = "aspect-[4/3] rounded-2xl shadow-xl shadow-ink/10 md:aspect-[16/10]";
+const frameClass = "aspect-[16/10] rounded-2xl shadow-xl shadow-ink/10";
 
 /**
  * The Hero's cinematic media area.
@@ -38,7 +38,7 @@ export function HeroMedia() {
   const frame = isVideoMedia(media) ? (
     <CinematicVideo
       video={media}
-      title="Portfolio showreel"
+      title={media.label ?? "Portfolio showreel"}
       className={frameClass}
       sizes="(min-width: 1024px) 45vw, 100vw"
       priority
@@ -46,7 +46,7 @@ export function HeroMedia() {
   ) : (
     <ResponsiveImage
       image={{ ...media, priority: true }}
-      title="Portfolio showreel"
+      title={media.label ?? "Portfolio showreel"}
       className={frameClass}
       sizes="(min-width: 1024px) 45vw, 100vw"
     />

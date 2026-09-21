@@ -5,8 +5,7 @@ import { projects } from "@/data/projects";
 
 /**
  * Homepage selected-work preview. All content comes from the projects
- * data array; media frames render branded placeholders until real
- * films/imagery are added.
+ * data array; completed projects have click-to-play interface films.
  */
 export function SelectedWork() {
   return (
@@ -17,7 +16,7 @@ export function SelectedWork() {
             id="selected-work-heading"
             eyebrow="Selected work"
             title="Digital solutions & concepts"
-            lead="A selection of digital projects and concepts I’ve worked on. Project media and further details are coming soon."
+            lead="A selection of digital projects and concepts I’ve worked on. Explore the real interfaces, on desktop and mobile."
           />
           <ButtonLink
             href="/work"
