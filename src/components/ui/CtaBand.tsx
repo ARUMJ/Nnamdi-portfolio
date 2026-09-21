@@ -10,6 +10,8 @@ interface CtaBandProps {
   subtitle?: ReactNode;
   ctaLabel: string;
   ctaHref: string;
+  /** Optional companion action; existing page CTAs remain unchanged. */
+  secondaryAction?: ReactNode;
 }
 
 /**
@@ -17,7 +19,14 @@ interface CtaBandProps {
  * Used verbatim on the homepage and adapted on inner pages —
  * so there is one CTA treatment across the site.
  */
-export function CtaBand({ eyebrow, title, subtitle, ctaLabel, ctaHref }: CtaBandProps) {
+export function CtaBand({
+  eyebrow,
+  title,
+  subtitle,
+  ctaLabel,
+  ctaHref,
+  secondaryAction,
+}: CtaBandProps) {
   const headingId = useId();
 
   return (
@@ -48,10 +57,15 @@ export function CtaBand({ eyebrow, title, subtitle, ctaLabel, ctaHref }: CtaBand
               {subtitle}
             </p>
           )}
-          <div className="mt-9 flex justify-center">
+          <div
+            className={`mt-9 flex justify-center ${
+              secondaryAction ? "flex-col items-stretch gap-3 sm:flex-row sm:items-center" : ""
+            }`}
+          >
             <ButtonLink href={ctaHref} variant="inverse" withArrow>
               {ctaLabel}
             </ButtonLink>
+            {secondaryAction}
           </div>
         </div>
       </div>

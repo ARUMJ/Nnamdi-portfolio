@@ -63,7 +63,7 @@ export function Footer() {
               href={site.contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-ink transition-colors duration-200 hover:text-accent"
+              className="text-ink underline underline-offset-4 transition-colors duration-200 hover:text-accent"
             >
               WhatsApp
             </a>{" "}

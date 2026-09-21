@@ -38,15 +38,15 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
       >
         <SolutionIcon name={solution.icon} className="size-6" />
       </span>
-      <span className="block min-w-0">
+      <div className="min-w-0">
         {isDetail ? (
           <h2 className="font-display text-2xl font-medium tracking-tight text-ink md:text-3xl">
             {solution.title}
           </h2>
         ) : (
-          <span className="block font-display text-xl font-medium tracking-tight text-ink sm:text-2xl">
+          <h3 className="font-display text-xl font-medium leading-snug tracking-tight text-ink sm:text-2xl">
             {solution.title}
-          </span>
+          </h3>
         )}
         <span className="mt-2 block max-w-xl text-sm leading-relaxed text-muted sm:text-[0.95rem]">
           {solution.shortDescription}
@@ -68,7 +68,7 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
             ))}
           </span>
         )}
-      </span>
+      </div>
       {!isDetail && (
         <span
           aria-hidden="true"

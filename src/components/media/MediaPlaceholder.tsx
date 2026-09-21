@@ -31,9 +31,9 @@ function CornerTicks() {
  * Branded, cinematic placeholder for media slots that don't have real
  * assets yet — project films, project stills, the hero showreel.
  *
- * It is deliberately styled like a film frame (corner ticks, timecode,
- * play affordance) so the swap to real media later is a content change,
- * not a redesign. No project imagery is implied or invented here.
+ * It is deliberately styled like a film frame (corner ticks and a grid)
+ * so the swap to real media later is a content change,
+ * not a redesign. No play control or imagery is implied before media exists.
  */
 export function MediaPlaceholder({
   title,
@@ -53,48 +53,30 @@ export function MediaPlaceholder({
       <div aria-hidden="true" className="texture-noise absolute inset-0 opacity-5" />
       <CornerTicks />
 
-      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between p-5 md:p-6">
-        <span className="text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-paper/50">
+      <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-3 px-6 py-5">
+        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-dark">
           {kicker ?? "Media"}
         </span>
-        <span className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-paper/50">
-          <span aria-hidden="true" className="pulse-dot size-1.5 rounded-full bg-accent" />
+        <span className="shrink-0 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-dark">
           {media === "video" ? "Film" : "Still"}
         </span>
       </div>
 
-      <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 py-20 text-center">
-        {media === "video" && (
-          <span
-            aria-hidden="true"
-            className="mb-6 flex size-14 items-center justify-center rounded-full border border-paper/25 md:size-16"
-          >
-            <svg viewBox="0 0 24 24" className="ml-0.5 size-5 fill-paper/85">
-              <path d="M8 5.5v13l11-6.5L8 5.5Z" />
-            </svg>
-          </span>
-        )}
-        <span className="max-w-md font-display text-2xl font-medium leading-snug tracking-tight text-balance text-paper sm:text-3xl md:text-4xl">
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-6 py-14 text-center">
+        <span className="max-w-md font-display text-xl font-medium leading-snug tracking-tight text-balance text-paper sm:text-2xl lg:text-3xl">
           {title}
         </span>
-        {label && (
-          <span className="mt-4 text-[0.65rem] font-semibold uppercase tracking-[0.22em] text-paper/45">
-            {label}
-          </span>
-        )}
       </div>
 
-      {/* film timecode strip */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-between p-5 md:p-6"
-      >
-        <span className="h-px flex-1 bg-paper/10" />
-        <span className="mx-4 font-mono text-[0.6rem] tracking-[0.3em] text-paper/25">
-          00:00
-        </span>
-        <span className="h-px flex-1 bg-paper/10" />
-      </div>
+      {label && (
+        <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-3 px-6 py-5">
+          <span aria-hidden="true" className="h-px max-w-12 flex-1 bg-paper/20" />
+          <span className="text-center text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-dark">
+            {label}
+          </span>
+          <span aria-hidden="true" className="h-px max-w-12 flex-1 bg-paper/20" />
+        </div>
+      )}
     </div>
   );
 }

@@ -8,8 +8,8 @@ import { solutions } from "@/data/solutions";
  */
 export function SolutionsPreview() {
   return (
-    <section aria-labelledby="solutions-heading" className="border-t border-line">
-      <div className="container-page py-20 md:py-28">
+    <section aria-labelledby="solutions-heading" className="bg-paper">
+      <div className="container-page py-16 sm:py-20 md:py-28">
         <div className="reveal max-w-2xl">
           <SectionHeading
             id="solutions-heading"
