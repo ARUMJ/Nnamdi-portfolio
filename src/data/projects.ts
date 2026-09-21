@@ -3,9 +3,11 @@ import type { Project } from "@/lib/types";
 /**
  * Portfolio projects.
  *
- * Only *known* fields are populated. Media (images/videos), most descriptions,
- * case-study URLs and live URLs are intentionally left empty — the media
- * system renders branded placeholders until real assets are supplied.
+ * Only *known* fields are populated. Media slots (heroMedia / featuredMedia /
+ * gallery), most descriptions, case-study URLs and live URLs are
+ * intentionally left empty — the media system renders branded placeholders
+ * until real assets are supplied. Asset conventions live in
+ * `public/media/README.md`.
  *
  * Adding a project = adding an object here. The showcase, work page and
  * (future) case-study routes all read from this array.

@@ -1,4 +1,4 @@
-import { MediaPlaceholder } from "@/components/media/MediaPlaceholder";
+import { HeroMedia } from "@/components/home/HeroMedia";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { site } from "@/data/site";
@@ -6,8 +6,9 @@ import { site } from "@/data/site";
 /**
  * Homepage hero: solution-based positioning on the left, a cinematic
  * media frame on the right that is reserved for the portfolio showreel.
- * The frame is a branded placeholder today — the real film drops in
- * through the same MediaPlaceholder slot without redesign.
+ * The frame resolves through the media chain (video → poster → still →
+ * branded placeholder) — a real film drops into `siteMedia.heroShowreel`
+ * without any redesign.
  */
 export function Hero() {
   return (
@@ -46,13 +47,7 @@ export function Hero() {
 
         <div className="min-w-0 lg:col-span-6">
           <div className="hero-enter hero-enter-2">
-            <MediaPlaceholder
-              media="video"
-              kicker="Showreel"
-              title="Portfolio film"
-              label="Coming soon"
-              className="aspect-[4/3] rounded-2xl shadow-xl shadow-ink/10 md:aspect-[16/10]"
-            />
+            <HeroMedia />
           </div>
         </div>
       </div>
