@@ -47,7 +47,7 @@ export function MobileNav() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors duration-200 hover:border-ink"
+        className="flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors duration-200 hover:border-ink md:hidden"
       >
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
         <svg
@@ -77,8 +77,8 @@ export function MobileNav() {
         tabIndex={-1}
         inert={!open}
         aria-hidden={!open}
-        className={`fixed inset-x-0 top-16 z-40 overflow-hidden bg-paper shadow-xl shadow-ink/10 transition-[grid-template-rows] duration-300 ease-out outline-none ${
-          open ? "grid-rows-[1fr] border-b border-line" : "grid-rows-[0fr]"
+        className={`fixed inset-x-0 top-16 z-40 grid overflow-hidden bg-paper transition-[grid-template-rows] duration-300 ease-out outline-none md:hidden ${
+          open ? "grid-rows-[1fr] border-b border-line shadow-xl shadow-ink/10" : "grid-rows-[0fr]"
         }`}
       >
         <nav aria-label="Mobile" className="min-h-0 overflow-hidden">
