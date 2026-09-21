@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 import { PageHeader } from "@/components/layout/PageHeader";
+import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -34,9 +36,8 @@ const briefItems = [
 ] as const;
 
 /**
- * Contact page, Build 01: a brief guide plus an honest status card for the
- * contact channels. No form backend, no invented email address — the real
- * channel drops into this layout when it is provided.
+ * Contact page: a brief guide plus the real contact channel. WhatsApp is the
+ * only channel published — no form backend and no invented email address.
  */
 export default function ContactPage() {
   return (
@@ -85,21 +86,31 @@ export default function ContactPage() {
                   strokeLinejoin="round"
                   className="size-5"
                 >
-                  <rect x="3" y="5" width="18" height="14" rx="2" />
-                  <path d="m3 7 9 6 9-6" />
+                  <path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.3 8.6 8.6 0 0 1-4-1L4 20l1.3-4.3a8.2 8.2 0 0 1-1.1-4.2A8.4 8.4 0 0 1 12.7 3 8.4 8.4 0 0 1 21 11.5Z" />
                 </svg>
               </span>
               <h2 className="mt-6 font-display text-2xl font-medium tracking-tight text-ink">
-                Contact channels — coming soon
+                WhatsApp
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted">
-                Direct contact channels and project intake are being set up.
-                This section will link to the fastest way to reach me once
-                they&apos;re live.
+                The fastest way to reach me. Send the brief above and
+                we&apos;ll take it from there.
               </p>
-              <p className="mt-5 border-t border-line pt-5 text-sm leading-relaxed text-muted">
-                In the meantime, keep the brief above ready — it&apos;s exactly
-                what shapes the first answer.
+              <p className="mt-5 font-display text-xl tracking-tight text-ink">
+                <span className="sr-only">WhatsApp number: </span>
+                {site.contact.whatsappNumber}
+              </p>
+              <a
+                href={site.contact.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium tracking-wide text-paper transition-colors duration-200 hover:bg-accent-deep"
+              >
+                Chat on WhatsApp
+                <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </a>
+              <p className="mt-6 border-t border-line pt-5 text-sm leading-relaxed text-muted">
+                Opens WhatsApp on mobile, or WhatsApp Web on desktop.
               </p>
             </div>
           </div>

@@ -58,6 +58,17 @@ export function Footer() {
             {site.primaryCta.label}
             <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
+          <p className="mt-5 border-t border-line/70 pt-5 text-sm text-muted">
+            <a
+              href={site.contact.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-ink transition-colors duration-200 hover:text-accent"
+            >
+              WhatsApp
+            </a>{" "}
+            <span className="whitespace-nowrap">{site.contact.whatsappNumber}</span>
+          </p>
         </div>
       </div>
 

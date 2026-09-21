@@ -30,6 +30,16 @@ export const site = {
     href: "/contact",
   },
 
+  /**
+   * Real contact channels. The WhatsApp display number keeps the local
+   * Nigerian format; the wa.me link uses the international code (234) with
+   * the leading 0 dropped, as WhatsApp requires.
+   */
+  contact: {
+    whatsappNumber: "08102505135",
+    whatsappUrl: "https://wa.me/2348102505135",
+  },
+
   about: {
     summary:
       "I'm Arum Jonathan Nnamdi — a web developer and digital assistant with a background in Computer Engineering. I work with businesses and organizations on the practical side of technology: building websites and web products, improving the ones that already exist, and providing the digital and technical support that keeps them running.",
