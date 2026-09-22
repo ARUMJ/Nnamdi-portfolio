@@ -17,7 +17,11 @@ export function Statement() {
             Technology that <span className="italic text-accent">works for you</span>.
           </h2>
         </div>
-        <div className="reveal max-w-xl border-t border-border pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+        <div
+          className="reveal max-w-xl border-t border-border pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0"
+          data-reveal-delay="120"
+          style={{ ["--reveal-delay" as string]: "120ms" }}
+        >
           <p className="text-base leading-relaxed text-foreground-muted sm:text-lg">
             A professional website. A clearer digital experience. Technical help
             when something stops working. Businesses and organizations need

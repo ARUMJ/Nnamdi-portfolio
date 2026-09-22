@@ -27,6 +27,8 @@ const steps = [
  * "How I work" — a dark, cinematic band with the five-step process.
  * Numbered steps and hairline rules carry the visual interest;
  * no animation beyond the shared subtle reveal.
+ *
+ * Build 06: staggered reveal for steps, subtle ambient grid drift.
  */
 export function Process() {
   return (
@@ -35,9 +37,10 @@ export function Process() {
       aria-labelledby="process-heading"
       className="on-dark relative overflow-hidden bg-inverse-surface"
     >
-      <div aria-hidden="true" className="texture-grid absolute inset-0 opacity-40" />
+      <div aria-hidden="true" className="texture-grid ambient-grid absolute inset-0 opacity-40" />
+      <div aria-hidden="true" className="glow-drift absolute inset-0 bg-[radial-gradient(70%_55%_at_50%_0%,var(--inverse-glow),transparent_62%)] opacity-60" />
       <div className="container-page relative py-16 sm:py-20 md:py-28">
-        <div className="reveal">
+        <div className="reveal" data-reveal-delay="0">
           <SectionHeading
             inverse
             id="process-heading"
@@ -47,9 +50,14 @@ export function Process() {
           />
         </div>
 
-        <ol className="reveal mt-10 grid gap-x-8 gap-y-8 sm:mt-14 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-6">
+        <ol className="mt-10 grid gap-x-8 gap-y-8 sm:mt-14 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-6">
           {steps.map((step, index) => (
-            <li key={step.title} className="border-t border-inverse-border pt-6">
+            <li
+              key={step.title}
+              className="reveal border-t border-inverse-border pt-6"
+              data-reveal-delay={String(80 + index * 70)}
+              style={{ ["--reveal-delay" as string]: `${80 + index * 70}ms` }}
+            >
               <span
                 aria-hidden="true"
                 className="font-display text-4xl tracking-tight text-inverse-muted"

@@ -22,6 +22,8 @@ interface MediaGalleryProps {
  * inside a gallery), and the list is labelled for assistive technology.
  * Renders nothing for an empty list so sections can include a gallery
  * before any media exists.
+ *
+ * Build 06: staggered reveal + media hover scale.
  */
 export function MediaGallery({ items, title, columns = 2, className = "" }: MediaGalleryProps) {
   if (items.length === 0) return null;
@@ -34,14 +36,20 @@ export function MediaGallery({ items, title, columns = 2, className = "" }: Medi
       } ${className}`.trim()}
     >
       {items.map((item, index) => (
-        <li key={`${item.src}-${index}`} className="min-w-0">
-          <figure className="min-w-0">
+        <li
+          key={`${item.src}-${index}`}
+          className="reveal min-w-0"
+          data-reveal-delay={String(index * 80)}
+          style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
+        >
+          <figure className="media-frame group min-w-0 overflow-hidden rounded-lg">
             {isVideoMedia(item) ? (
               <CinematicVideo
                 video={item}
                 title={title}
                 className="aspect-[4/3] rounded-lg"
                 sizes="(min-width: 1024px) 33vw, 100vw"
+                hoverZoom
               />
             ) : (
               <ResponsiveImage
@@ -49,6 +57,7 @@ export function MediaGallery({ items, title, columns = 2, className = "" }: Medi
                 title={title}
                 className="aspect-[4/3] rounded-lg"
                 sizes="(min-width: 1024px) 33vw, 100vw"
+                hoverZoom
               />
             )}
             <MediaCaption label={item.label} caption={item.caption} className="mt-3" />

@@ -18,6 +18,8 @@ interface CtaBandProps {
  * Reusable closing call-to-action band (dark, cinematic).
  * Used verbatim on the homepage and adapted on inner pages —
  * so there is one CTA treatment across the site.
+ *
+ * Build 06: ambient glow drift, reveal for content.
  */
 export function CtaBand({
   eyebrow,
@@ -34,10 +36,10 @@ export function CtaBand({
       aria-labelledby={headingId}
       className="on-dark relative overflow-hidden bg-inverse-surface"
     >
-      <div aria-hidden="true" className="texture-grid absolute inset-0 opacity-50" />
+      <div aria-hidden="true" className="texture-grid ambient-grid absolute inset-0 opacity-50" />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_120%,var(--inverse-glow),transparent_60%)]"
+        className="glow-drift absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_120%,var(--inverse-glow),transparent_60%)]"
       />
       <div className="container-page relative py-20 text-center md:py-28">
         <div className="reveal mx-auto max-w-2xl">

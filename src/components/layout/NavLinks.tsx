@@ -9,6 +9,9 @@ import { site } from "@/data/site";
  * Desktop navigation. Client component only because it needs usePathname()
  * to highlight the active route — everything else in the header remains
  * server-rendered.
+ *
+ * Build 06: sliding underline (scaleX) + premium hover. Active state is a
+ * persistent scaleX(1); hover animates from 0→1. GPU-only.
  */
 export function NavLinks() {
   const pathname = usePathname();
@@ -24,19 +27,13 @@ export function NavLinks() {
             <Link
               href={item.href}
               aria-current={isActive ? "page" : undefined}
-              className={`relative pb-1 text-sm transition-colors duration-200 ${
+              className={`nav-link pb-1 text-sm transition-colors duration-200 ${
                 isActive
                   ? "font-medium text-foreground"
                   : "text-foreground-muted hover:text-foreground"
               }`}
             >
               {item.label}
-              <span
-                aria-hidden="true"
-                className={`absolute inset-x-0 -bottom-0.5 h-px bg-accent transition-opacity duration-200 ${
-                  isActive ? "opacity-100" : "opacity-0"
-                }`}
-              />
             </Link>
           </li>
         );

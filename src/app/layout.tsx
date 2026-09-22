@@ -8,6 +8,7 @@ import "@fontsource-variable/instrument-sans/wght.css";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { site } from "@/data/site";
 import { themeInitScript } from "@/lib/theme";
 
@@ -68,6 +69,15 @@ export default function RootLayout({
           wrong theme. Mirrored at runtime by src/lib/theme.ts.
         */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function(){try{document.documentElement.classList.add('js')}catch(e){}})();",
+          }}
+        />
+        <noscript>
+          <style>{".reveal{opacity:1!important;transform:none!important}.media-reveal{clip-path:none!important}"}</style>
+        </noscript>
+        <ScrollReveal />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

@@ -30,6 +30,8 @@ interface ResponsiveImageProps {
  *
  * On load failure the image degrades to the branded placeholder instead of
  * a broken-image box — the media chain never shows broken media.
+ *
+ * Build 06: premium hover scale 1.06 via GPU transform.
  */
 export function ResponsiveImage({
   image,
@@ -68,7 +70,7 @@ export function ResponsiveImage({
         onError={() => setFailed(true)}
         className={`${fit === "contain" ? "object-contain" : "object-cover"} ${
           hoverZoom
-            ? "transition-transform duration-700 ease-out group-hover/img:scale-[1.03]"
+            ? "transition-transform duration-700 ease-out will-change-transform group-hover/img:scale-[1.06]"
             : ""
         }`.trim()}
       />

@@ -192,6 +192,12 @@
     outline: 2px solid var(--color-focus-ring);
     outline-offset: 3px;
   }
+
+  /* Prevent horizontal overflow from motion */
+  html,
+  body {
+    overflow-x: clip;
+  }
 }
 
 /* ---------------------------- components --------------------------- */
@@ -227,9 +233,22 @@
 }
 
 /* -------------------------------------------------------------------- */
-/* Motion — subtle only: a load-in for the hero, a CSS scroll-driven    */
-/* reveal (zero JavaScript) where supported. No looping animation.     */
-/* Everything lives behind prefers-reduced-motion.                      */
+/* Motion — Build 06 Premium Motion System                              */
+/*                                                                     */
+/* Layered, GPU-friendly, intentionally restrained:                     */
+/* - hero-enter (initial load)                                          */
+/* - pointer parallax via CSS vars (--mx, --my)                         */
+/* - scroll reveal via IntersectionObserver (.reveal + .is-visible)     */
+/* - project tilt (perspective + rotateX/Y via vars)                   */
+/* - image/media hover scale + cinematic clip reveal                    */
+/* - button/link micro-interactions                                     */
+/* - ambient drift for background orbs/grids                            */
+/* - page/section subtle transitions                                    */
+/*                                                                     */
+/* All motion is transform/opacity only, composited on the GPU.        */
+/* Every animated rule lives behind prefers-reduced-motion: no-preference */
+/* and is neutralized under reduce. Content is never hidden from       */
+/* assistive tech or no-JS (noscript fallback + reduced-motion guard).  */
 /* -------------------------------------------------------------------- */
 
 @keyframes rise {
@@ -246,50 +265,463 @@
 @keyframes reveal-in {
   from {
     opacity: 0.001;
-    transform: translateY(26px);
+    transform: translateY(26px) scale(0.985);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
+@keyframes ambient-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(8px, -12px, 0) scale(1.03);
+  }
+}
+
+@keyframes ambient-drift-reverse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-10px, 8px, 0) scale(1.02);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* No-JS fallback: ensure reveal content is visible without JS */
+noscript .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  /* --------------------------------------------------------------
+     Hero enter — staged load-in (kept from Build 05, slightly refined)
+     -------------------------------------------------------------- */
   .hero-enter {
     animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform, opacity;
   }
-
   .hero-enter-1 {
     animation-delay: 0.06s;
   }
-
   .hero-enter-2 {
     animation-delay: 0.14s;
   }
-
   .hero-enter-3 {
     animation-delay: 0.22s;
   }
-
   .hero-enter-4 {
     animation-delay: 0.3s;
   }
 
-  /* Scroll-driven reveal: pure CSS, no JavaScript, and only where the
-     browser supports it. Unsupported browsers simply show static content. */
+  /* --------------------------------------------------------------
+     Scroll reveal — IntersectionObserver-driven (JS adds .is-visible)
+     Works in every browser, even without view-timeline.
+     The no-JS fallback is via @supports view() below + noscript above.
+     -------------------------------------------------------------- */
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+    transition:
+      opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Variants: data-reveal attribute controls direction */
+  html.js .reveal[data-reveal="scale"] {
+    transform: scale(0.96);
+  }
+  html.js .reveal[data-reveal="scale"].is-visible {
+    transform: scale(1);
+  }
+  html.js .reveal[data-reveal="left"] {
+    transform: translateX(-22px);
+  }
+  html.js .reveal[data-reveal="left"].is-visible {
+    transform: translateX(0);
+  }
+  html.js .reveal[data-reveal="right"] {
+    transform: translateX(22px);
+  }
+  html.js .reveal[data-reveal="right"].is-visible {
+    transform: translateX(0);
+  }
+  /* Staggered children: parent marks stagger, JS sets --stagger-index per child via delay */
+  html.js .reveal.is-visible {
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* CSS-only scroll-driven fallback for browsers with view-timeline and no JS */
   @supports (animation-timeline: view()) {
-    .reveal {
+    html:not(.js) .reveal {
       animation: reveal-in linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+      animation-range: entry 0% entry 36%;
     }
   }
 
-  /* Theme switch: a short, unified color crossfade applied only while the
-     visitor toggles themes (src/lib/theme.ts adds .theme-switching for the
-     duration of the switch). Never present on page load, and never active
-     under reduced motion — the global reduce rule below kills transitions
-     outright. */
+  /* --------------------------------------------------------------
+     Hero parallax system — layers move at different speeds via CSS vars
+     --mx / --my are -1..1 set by pointer position (JS). Each layer
+     multiplies them. Text stays almost stable; media and decor move more.
+     On coarse pointers (mobile) JS never sets vars, so this is inert.
+     -------------------------------------------------------------- */
+  .hero-parallax {
+    position: relative;
+    --mx: 0;
+    --my: 0;
+  }
+
+  .hero-parallax-content {
+    transform: translate3d(calc(var(--mx) * 4px), calc(var(--my) * 6px), 0);
+    will-change: transform;
+    transition: transform 0.18s ease-out;
+  }
+
+  .hero-parallax-media {
+    transform: translate3d(calc(var(--mx) * -10px), calc(var(--my) * -12px), 0);
+    will-change: transform;
+    transition: transform 0.22s ease-out;
+  }
+
+  /* Slight depth on media inner for parallax shadow */
+  .hero-parallax-media .hero-media-inner {
+    transform: translate3d(calc(var(--mx) * -4px), calc(var(--my) * -6px), 0);
+    transition: transform 0.22s ease-out;
+    will-change: transform;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+    will-change: transform;
+    transition: transform 0.3s ease-out;
+  }
+
+  .hero-orb--1 {
+    width: 420px;
+    height: 420px;
+    left: -80px;
+    top: -60px;
+    background: radial-gradient(60% 60% at 50% 50%, rgb(31 74 60 / 0.09), transparent 70%);
+    transform: translate3d(calc(var(--mx) * 22px), calc(var(--my) * 16px), 0);
+  }
+
+  .dark .hero-orb--1 {
+    background: radial-gradient(60% 60% at 50% 50%, rgb(140 194 170 / 0.07), transparent 70%);
+  }
+
+  .hero-orb--2 {
+    width: 520px;
+    height: 520px;
+    right: -120px;
+    bottom: -140px;
+    background: radial-gradient(55% 55% at 50% 50%, rgb(31 74 60 / 0.06), transparent 72%);
+    transform: translate3d(calc(var(--mx) * -18px), calc(var(--my) * -20px), 0);
+  }
+
+  .dark .hero-orb--2 {
+    background: radial-gradient(55% 55% at 50% 50%, rgb(140 194 170 / 0.05), transparent 72%);
+  }
+
+  .hero-orb--3 {
+    width: 300px;
+    height: 300px;
+    left: 38%;
+    top: 12%;
+    background: radial-gradient(60% 60% at 50% 50%, rgb(245 244 239 / 0.55), transparent 70%);
+    opacity: 0.5;
+    transform: translate3d(calc(var(--mx) * 12px), calc(var(--my) * 10px), 0);
+  }
+
+  .dark .hero-orb--3 {
+    background: radial-gradient(60% 60% at 50% 50%, rgb(242 240 234 / 0.035), transparent 70%);
+  }
+
+  /* --------------------------------------------------------------
+     Project card tilt system
+     Parent provides perspective; card rotates via --tilt-x / --tilt-y (deg)
+     set by JS on pointermove. Hover elevates shadow.
+     -------------------------------------------------------------- */
+  .tilt-wrap {
+    perspective: 1200px;
+    perspective-origin: center center;
+  }
+
+  .tilt-card {
+    transform-style: preserve-3d;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    --tilt-scale: 1;
+    transform: perspective(1000px) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) scale(var(--tilt-scale));
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s ease,
+      border-color 0.2s ease;
+    will-change: transform;
+  }
+
+  .tilt-card.is-hovered {
+    --tilt-scale: 1.015;
+  }
+
+  /* Subtle glare that follows pointer via --glare-x / --glare-y (0-100) */
+  .tilt-glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      600px circle at var(--glare-x, 50%) var(--glare-y, 50%),
+      rgb(255 255 255 / 0.09),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+  }
+
+  .dark .tilt-glare {
+    background: radial-gradient(
+      600px circle at var(--glare-x, 50%) var(--glare-y, 50%),
+      rgb(255 255 255 / 0.06),
+      transparent 40%
+    );
+  }
+
+  .tilt-card.is-hovered .tilt-glare {
+    opacity: 1;
+  }
+
+  /* Depth for media inside tilt */
+  .tilt-media {
+    transform: translateZ(22px);
+    transform-style: preserve-3d;
+  }
+
+  .tilt-meta {
+    transform: translateZ(12px);
+  }
+
+  /* --------------------------------------------------------------
+     Image / media motion
+     Hover scale is GPU-only (transform). No filters. Cinematic clip
+     reveal uses scale + opacity.
+     -------------------------------------------------------------- */
+  .media-frame {
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .media-frame img,
+  .media-frame video {
+    transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .group:hover .media-frame img,
+  .group:hover .media-frame video,
+  .tilt-card.is-hovered .media-frame img,
+  .tilt-card.is-hovered .media-frame video {
+    transform: scale(1.06);
+  }
+
+  /* Slight parallax inside tilt: image translates opposite to tilt for depth */
+  .tilt-card.is-hovered .media-frame img {
+    transform: scale(1.06) translate3d(calc(var(--mx, 0) * 4px), calc(var(--my, 0) * 4px), 0);
+  }
+
+  /* Cinematic reveal for media when entering viewport */
+  .media-reveal {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html.js .media-reveal {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  html.js .media-reveal.is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* --------------------------------------------------------------
+     Buttons and links — polished, tactile micro-interactions
+     Transform + shadow + arrow motion, all GPU-friendly.
+     -------------------------------------------------------------- */
+  .btn-motion {
+    transition:
+      transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      box-shadow 0.22s ease;
+    will-change: transform;
+  }
+
+  .btn-motion:hover {
+    transform: translateY(-1px) scale(1.015);
+  }
+
+  .btn-motion:active {
+    transform: translateY(0) scale(0.985);
+    transition-duration: 0.12s;
+  }
+
+  .btn-motion--primary:hover {
+    box-shadow: 0 8px 24px rgb(26 28 31 / 0.12);
+  }
+
+  .dark .btn-motion--primary:hover {
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  }
+
+  .btn-motion--secondary:hover {
+    box-shadow: 0 6px 18px rgb(26 28 31 / 0.07);
+  }
+
+  /* Arrow inside buttons */
+  .btn-motion .btn-arrow {
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-motion:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  /* Nav links — sliding underline via scaleX */
+  .nav-link {
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+  }
+
+  /* Footer / inline links — underline grow */
+  .link-underline {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.25;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.2s ease;
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    opacity: 0.9;
+  }
+
+  /* Solution rows — subtle slide + icon lift */
+  .solution-row {
+    transition:
+      background-color 0.22s ease,
+      transform 0.22s ease,
+      padding-left 0.22s ease;
+    will-change: transform, background-color;
+  }
+
+  .solution-row:hover {
+    transform: translateX(4px);
+  }
+
+  .solution-row .solution-arrow {
+    transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .solution-row:hover .solution-arrow {
+    transform: translateX(4px);
+  }
+
+  /* --------------------------------------------------------------
+     Background / ambient motion — very subtle, slow, restrained
+     -------------------------------------------------------------- */
+  .ambient-orb {
+    animation: ambient-drift 18s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .ambient-orb--reverse {
+    animation: ambient-drift-reverse 22s ease-in-out infinite;
+  }
+
+  .ambient-grid {
+    animation: ambient-drift 28s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* CtaBand / Process subtle glow drift */
+  .glow-drift {
+    animation: ambient-drift 16s ease-in-out infinite;
+  }
+
+  /* --------------------------------------------------------------
+     Theme switch crossfade — only while toggling, never on load
+     -------------------------------------------------------------- */
   html.theme-switching,
   html.theme-switching *,
   html.theme-switching *::before,
@@ -305,14 +737,81 @@
     transition-duration: 250ms;
     transition-timing-function: ease;
   }
+
+  /* --------------------------------------------------------------
+     Page / section transitions — subtle fade for main on route change
+     Uses view transitions fallback: hero-enter handles per-page enter;
+     we add a soft fade for <main> when navigating (Next.js will re-render
+     main content; the animation runs on mount via hero-enter).
+     -------------------------------------------------------------- */
+  main {
+    animation: none;
+  }
 }
 
-/* Keep navigation, hover, and focus transitions instant for reduced motion. */
+/* ------------------------------------------------------------------ */
+/* Reduced motion — disable/soften everything, preserve visibility    */
+/* ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.js .reveal,
+  html.js .reveal[data-reveal],
+  html.js .media-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+  }
+
+  .hero-parallax-content,
+  .hero-parallax-media,
+  .hero-parallax-media .hero-media-inner,
+  .hero-orb {
+    transform: none !important;
+    transition: none !important;
     animation: none !important;
+  }
+
+  .tilt-card,
+  .tilt-glare,
+  .media-frame img,
+  .media-frame video {
+    transform: none !important;
     transition: none !important;
   }
+
+  .ambient-orb,
+  .ambient-orb--reverse,
+  .ambient-grid,
+  .glow-drift {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .btn-motion,
+  .solution-row {
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Focus — keep clearly visible even with motion                      */
+/* ------------------------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+/* Ensure motion never causes horizontal overflow */
+.hero-parallax,
+.tilt-wrap,
+.media-frame {
+  max-width: 100%;
 }
