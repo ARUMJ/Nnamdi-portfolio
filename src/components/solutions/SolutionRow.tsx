@@ -13,14 +13,17 @@ interface SolutionRowProps {
    * detail  — full row on /solutions (real heading, description, fits list)
    */
   variant?: "preview" | "detail";
+  revealDelay?: number;
 }
 
 /**
  * One solution, rendered as an editorial index row.
  * A single component serves both the homepage preview and the /solutions
  * page, so a new solution in the data updates both automatically.
+ *
+ * Build 06: premium hover slide (translateX) + icon accent + arrow.
  */
-export function SolutionRow({ solution, index, variant = "preview" }: SolutionRowProps) {
+export function SolutionRow({ solution, index, variant = "preview", revealDelay }: SolutionRowProps) {
   const number = String(index).padStart(2, "0");
   const isDetail = variant === "detail";
 
@@ -72,7 +75,7 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
       {!isDetail && (
         <span
           aria-hidden="true"
-          className="hidden justify-self-end pt-1.5 text-foreground-muted transition-all duration-200 group-hover:translate-x-1 group-hover:text-foreground sm:flex"
+          className="solution-arrow hidden justify-self-end pt-1.5 text-foreground-muted transition-colors duration-200 group-hover:text-foreground sm:flex"
         >
           <ArrowIcon className="size-5" />
         </span>
@@ -80,20 +83,28 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
     </>
   );
 
-  const rowClass = `group grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 border-b border-border py-7 sm:grid-cols-[2.75rem_2.5rem_1fr_2rem] sm:gap-x-5 md:py-8 ${
-    isDetail ? "" : "transition-colors duration-200 hover:bg-surface-hover"
+  const rowClass = `solution-row group grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 border-b border-border py-7 sm:grid-cols-[2.75rem_2.5rem_1fr_2rem] sm:gap-x-5 md:py-8 ${
+    isDetail ? "" : "hover:bg-surface-hover"
   }`;
+
+  const revealProps =
+    typeof revealDelay === "number"
+      ? {
+          "data-reveal-delay": String(revealDelay),
+          style: { ["--reveal-delay" as string]: `${revealDelay}ms` } as React.CSSProperties,
+        }
+      : {};
 
   if (isDetail) {
     return (
-      <li id={solution.slug} className="scroll-mt-28">
+      <li id={solution.slug} className="reveal scroll-mt-28" {...revealProps}>
         <div className={rowClass}>{content}</div>
       </li>
     );
   }
 
   return (
-    <li>
+    <li className="reveal" {...revealProps}>
       <Link href={`/solutions#${solution.slug}`} className={rowClass}>
         {content}
       </Link>

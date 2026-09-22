@@ -227,7 +227,7 @@ export function CinematicVideo({
           onError={() => setPosterFailed(true)}
           className={`object-cover ${
             hoverZoom
-              ? "transition-transform duration-700 ease-out group-hover/cv:scale-[1.03]"
+              ? "transition-transform duration-700 ease-out will-change-transform group-hover/cv:scale-[1.06]"
               : ""
           }`.trim()}
         />

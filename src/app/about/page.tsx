@@ -24,13 +24,15 @@ export default function AboutPage() {
 
       <section className="container-page grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
-          <div className="reveal">
-            <PortraitFigure priority />
+          <div className="reveal" data-reveal="left">
+            <div className="media-frame overflow-hidden rounded-2xl">
+              <PortraitFigure priority />
+            </div>
           </div>
         </div>
 
         <div className="lg:col-span-7">
-          <div className="reveal">
+          <div className="reveal" data-reveal="right" data-reveal-delay="100" style={{ ["--reveal-delay" as string]: "100ms" }}>
             <Eyebrow>Background</Eyebrow>
             <h2 className="mt-5 font-display text-2xl font-medium tracking-tight text-foreground md:text-3xl">
               What I work on
@@ -43,15 +45,16 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="reveal mt-10">
+          <div className="reveal mt-10" data-reveal-delay="180" style={{ ["--reveal-delay" as string]: "180ms" }}>
             <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
               Focus areas
             </h3>
             <ul aria-label="Focus areas" className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-              {site.about.focusAreas.map((area) => (
+              {site.about.focusAreas.map((area, index) => (
                 <li
                   key={area}
                   className="flex items-center gap-3 border-t border-border pt-3.5 text-sm font-medium text-foreground"
+                  style={{ transitionDelay: `${260 + index * 40}ms` } as React.CSSProperties}
                 >
                   <span aria-hidden="true" className="size-1 rounded-full bg-accent" />
                   {area}
@@ -60,7 +63,7 @@ export default function AboutPage() {
             </ul>
           </div>
 
-          <div className="reveal mt-12 flex flex-wrap gap-3">
+          <div className="reveal mt-12 flex flex-wrap gap-3" data-reveal-delay="280" style={{ ["--reveal-delay" as string]: "280ms" }}>
             <ButtonLink href="/solutions" withArrow>
               Explore solutions
             </ButtonLink>

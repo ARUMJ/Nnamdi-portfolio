@@ -23,15 +23,15 @@ interface ButtonLinkProps {
 }
 
 const baseClasses =
-  "group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-200";
+  "btn-motion group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide";
 
 const variantClasses: Record<ButtonLinkVariant, string> = {
-  primary: "bg-button text-button-foreground hover:bg-button-hover",
-  secondary: "border border-border bg-transparent text-foreground hover:border-foreground",
+  primary: "btn-motion--primary bg-button text-button-foreground hover:bg-button-hover",
+  secondary: "btn-motion--secondary border border-border bg-transparent text-foreground hover:border-foreground",
   inverse: "bg-inverse-button text-inverse-button-foreground hover:bg-inverse-button-hover hover:text-inverse-button-hover-foreground",
 };
 
-/** The site's only call-to-action element. Always a semantic link. */
+/** The site's only call-to-action element. Always a semantic link. Premium tactile motion. */
 export function ButtonLink({
   href,
   children,
@@ -46,7 +46,7 @@ export function ButtonLink({
     >
       {children}
       {withArrow && (
-        <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+        <ArrowIcon className="btn-arrow size-4" />
       )}
     </Link>
   );

@@ -5,6 +5,8 @@ import { solutions } from "@/data/solutions";
 /**
  * Homepage solutions preview: an editorial index of the five solution
  * areas. Each row deep-links into the /solutions page.
+ *
+ * Build 06: staggered reveal per row for premium list entrance.
  */
 export function SolutionsPreview() {
   return (
@@ -24,9 +26,14 @@ export function SolutionsPreview() {
           />
         </div>
 
-        <ul className="reveal mt-12 border-t border-border">
+        <ul className="mt-12 border-t border-border">
           {solutions.map((solution, index) => (
-            <SolutionRow key={solution.id} solution={solution} index={index + 1} />
+            <SolutionRow
+              key={solution.id}
+              solution={solution}
+              index={index + 1}
+              revealDelay={60 + index * 70}
+            />
           ))}
         </ul>
       </div>

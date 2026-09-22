@@ -8,11 +8,12 @@ interface PageHeaderProps {
   lead?: ReactNode;
 }
 
-/** Consistent h1 hero for inner pages. */
+/** Consistent h1 hero for inner pages. Build 06 keeps hero-enter for premium load-in. */
 export function PageHeader({ eyebrow, title, lead }: PageHeaderProps) {
   return (
-    <section aria-labelledby="page-title" className="border-b border-border bg-surface/50">
-      <div className="container-page py-16 md:py-24">
+    <section aria-labelledby="page-title" className="relative overflow-hidden border-b border-border bg-surface/50">
+      <div aria-hidden="true" className="ambient-orb absolute -top-24 right-10 h-64 w-64 rounded-full bg-[radial-gradient(60%_60%_at_50%_50%,rgb(31_74_60/0.05),transparent_70%)] dark:bg-[radial-gradient(60%_60%_at_50%_50%,rgb(140_194_170/0.06),transparent_70%)]" />
+      <div className="container-page relative py-16 md:py-24">
         <div className="hero-enter max-w-3xl">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h1
@@ -22,7 +23,7 @@ export function PageHeader({ eyebrow, title, lead }: PageHeaderProps) {
             {title}
           </h1>
           {lead && (
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground-muted sm:text-lg">
+            <p className="hero-enter hero-enter-1 mt-5 max-w-2xl text-base leading-relaxed text-foreground-muted sm:text-lg">
               {lead}
             </p>
           )}

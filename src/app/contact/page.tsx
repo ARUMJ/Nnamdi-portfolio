@@ -38,6 +38,8 @@ const briefItems = [
 /**
  * Contact page: a brief guide plus the real contact channel. WhatsApp is the
  * only channel published — no form backend and no invented email address.
+ *
+ * Build 06: staggered reveals for brief items, tactile card motion.
  */
 export default function ContactPage() {
   return (
@@ -50,13 +52,20 @@ export default function ContactPage() {
 
       <section aria-label="How to get in touch" className="container-page grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">
-          <Eyebrow>What to include</Eyebrow>
-          <h2 className="mt-5 font-display text-2xl font-medium tracking-tight text-foreground md:text-3xl">
-            A short brief goes a long way
-          </h2>
+          <div className="reveal">
+            <Eyebrow>What to include</Eyebrow>
+            <h2 className="mt-5 font-display text-2xl font-medium tracking-tight text-foreground md:text-3xl">
+              A short brief goes a long way
+            </h2>
+          </div>
           <ul className="mt-9 grid gap-x-8 gap-y-7 sm:grid-cols-2">
             {briefItems.map((item, index) => (
-              <li key={item.title} className="border-t border-border pt-5">
+              <li
+                key={item.title}
+                className="reveal border-t border-border pt-5"
+                data-reveal-delay={String(80 + index * 70)}
+                style={{ ["--reveal-delay" as string]: `${80 + index * 70}ms` }}
+              >
                 <span
                   aria-hidden="true"
                   className="font-display text-sm tracking-[0.18em] text-foreground-muted"
@@ -73,9 +82,15 @@ export default function ContactPage() {
         </div>
 
         <div className="lg:col-span-5">
-          <div className="relative overflow-hidden rounded-2xl border border-border bg-surface/60 p-7 md:p-9">
+          <div
+            className="reveal group relative overflow-hidden rounded-2xl border border-border bg-surface/60 p-7 transition-all duration-300 hover:shadow-xl hover:shadow-elevation md:p-9"
+            data-reveal="scale"
+            data-reveal-delay="180"
+            style={{ ["--reveal-delay" as string]: "180ms" }}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_0%,rgb(31_74_60/0.06),transparent_70%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-[radial-gradient(60%_60%_at_50%_0%,rgb(140_194_170/0.05),transparent_70%)]" aria-hidden="true" />
             <div className="relative">
-              <span className="flex size-11 items-center justify-center rounded-full bg-button text-button-foreground">
+              <span className="flex size-11 items-center justify-center rounded-full bg-button text-button-foreground transition-transform duration-300 group-hover:scale-105">
                 <svg
                   aria-hidden="true"
                   viewBox="0 0 24 24"
@@ -104,10 +119,10 @@ export default function ContactPage() {
                 href={site.contact.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-button px-6 py-3 text-sm font-medium tracking-wide text-button-foreground transition-colors duration-200 hover:bg-button-hover"
+                className="btn-motion group mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-button px-6 py-3 text-sm font-medium tracking-wide text-button-foreground hover:bg-button-hover"
               >
                 Chat on WhatsApp
-                <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowIcon className="btn-arrow size-4" />
               </a>
               <p className="mt-6 border-t border-border pt-5 text-sm leading-relaxed text-foreground-muted">
                 Opens WhatsApp on mobile, or WhatsApp Web on desktop.

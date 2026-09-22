@@ -45,6 +45,8 @@ function MoonIcon() {
  * name, so the control is fully usable by keyboard and screen reader.
  * State and persistence live in the theme store (src/lib/theme.ts) — this
  * component only renders and forwards the click.
+ *
+ * Build 06: tactile micro-interaction — subtle scale + rotate on hover.
  */
 export function ThemeToggle() {
   const isDark = useTheme() === "dark";
@@ -55,9 +57,11 @@ export function ThemeToggle() {
       onClick={() => toggleTheme()}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Light mode" : "Dark mode"}
-      className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors duration-200 hover:border-foreground"
+      className="btn-motion flex size-10 items-center justify-center rounded-full border border-border text-foreground hover:border-foreground hover:scale-105 active:scale-95"
     >
-      {isDark ? <SunIcon /> : <MoonIcon />}
+      <span className="transition-transform duration-300 group-hover:rotate-12">
+        {isDark ? <SunIcon /> : <MoonIcon />}
+      </span>
     </button>
   );
 }

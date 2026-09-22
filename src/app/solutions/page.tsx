@@ -33,6 +33,7 @@ export default function SolutionsPage() {
               solution={solution}
               index={index + 1}
               variant="detail"
+              revealDelay={index * 70}
             />
           ))}
         </ul>

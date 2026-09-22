@@ -1,4 +1,5 @@
 import { ProjectMediaFrame } from "@/components/media/ProjectMediaFrame";
+import { Tilt } from "@/components/motion/Tilt";
 import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import type { Project } from "@/lib/types";
 
@@ -11,9 +12,12 @@ interface ProjectShowcaseProps {
  * feature frame, the remainder as a two-column grid.
  * Used by the homepage preview and the /work page.
  *
- * Media frames carry a subtle editorial zoom on hover so project media
- * reads as part of the project story; the motion is disabled entirely
- * under prefers-reduced-motion (global transition rule).
+ * Build 06 motion:
+ * - Each card is a subtle 3D tilt on pointer move (max ~5°, premium, not dramatic)
+ *   with glare and depth. Disabled on mobile and reduced motion.
+ * - Media frames have controlled hover scale (1.06) via GPU transform.
+ * - Cards elevate on hover (shadow + slight scale).
+ * - Staggered reveal: featured immediate, grid items staggered 90ms each.
  */
 export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
   if (projects.length === 0) return null;
@@ -22,21 +26,50 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
 
   return (
     <div>
-      <article className="reveal min-w-0">
-        <ProjectMediaFrame
-          project={featured}
-          hoverZoom
-          className="aspect-[16/10] rounded-xl"
-        />
-        <ProjectMeta project={featured} className="mt-4" />
+      <article
+        className="reveal group min-w-0"
+        data-reveal-delay="0"
+        style={{ ["--reveal-delay" as string]: "0ms" }}
+      >
+        <Tilt className="rounded-xl">
+          <div className="overflow-hidden rounded-xl border border-transparent transition-all duration-300 group-hover:border-border/60 group-hover:shadow-xl group-hover:shadow-elevation">
+            <div className="media-frame">
+              <ProjectMediaFrame
+                project={featured}
+                hoverZoom
+                className="aspect-[16/10] rounded-xl"
+              />
+            </div>
+          </div>
+          <div className="tilt-meta">
+            <ProjectMeta project={featured} className="mt-4" />
+          </div>
+        </Tilt>
       </article>
 
       {rest.length > 0 && (
         <div className="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:gap-x-8">
-          {rest.map((project) => (
-            <article key={project.id} className="reveal min-w-0">
-              <ProjectMediaFrame project={project} hoverZoom className={project.featuredMedia ? "aspect-[16/10] rounded-xl" : "aspect-[4/3] rounded-xl"} />
-              <ProjectMeta project={project} className="mt-4" />
+          {rest.map((project, index) => (
+            <article
+              key={project.id}
+              className="reveal group min-w-0"
+              data-reveal-delay={String((index + 1) * 80)}
+              style={{ ["--reveal-delay" as string]: `${(index + 1) * 80}ms` }}
+            >
+              <Tilt className="rounded-xl">
+                <div className="overflow-hidden rounded-xl border border-transparent transition-all duration-300 group-hover:border-border/60 group-hover:shadow-xl group-hover:shadow-elevation">
+                  <div className="media-frame">
+                    <ProjectMediaFrame
+                      project={project}
+                      hoverZoom
+                      className={project.featuredMedia ? "aspect-[16/10] rounded-xl" : "aspect-[4/3] rounded-xl"}
+                    />
+                  </div>
+                </div>
+                <div className="tilt-meta">
+                  <ProjectMeta project={project} className="mt-4" />
+                </div>
+              </Tilt>
             </article>
           ))}
         </div>
@@ -74,7 +107,7 @@ export function ProjectMeta({ project, className = "" }: ProjectMetaProps) {
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors duration-200 hover:text-accent"
+          className="link-underline group inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors duration-200 hover:text-accent"
         >
           Visit live
           <ArrowIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
