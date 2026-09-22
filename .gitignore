@@ -24,6 +24,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# theme validation artifacts (screenshots, results)
+.theme-artifacts/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

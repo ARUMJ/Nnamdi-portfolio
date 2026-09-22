@@ -25,7 +25,7 @@ export function SectionHeading({
       <h2
         id={id}
         className={`mt-5 font-display text-3xl font-medium leading-[1.08] tracking-tight text-balance sm:text-4xl lg:text-[2.75rem] ${
-          inverse ? "text-paper" : "text-ink"
+          inverse ? "text-inverse-foreground" : "text-foreground"
         }`}
       >
         {title}
@@ -33,7 +33,7 @@ export function SectionHeading({
       {lead && (
         <p
           className={`mt-4 text-base leading-relaxed sm:text-lg ${
-            inverse ? "text-muted-dark" : "text-muted"
+            inverse ? "text-inverse-muted" : "text-foreground-muted"
           }`}
         >
           {lead}

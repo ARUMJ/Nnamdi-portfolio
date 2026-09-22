@@ -5,7 +5,7 @@ import { ResponsiveImage } from "@/components/media/ResponsiveImage";
 import { siteMedia } from "@/data/media";
 import { isVideoMedia } from "@/lib/types";
 
-const frameClass = "aspect-[16/10] rounded-2xl shadow-xl shadow-ink/10";
+const frameClass = "aspect-[16/10] rounded-2xl shadow-xl shadow-elevation";
 
 /**
  * The Hero's cinematic media area.

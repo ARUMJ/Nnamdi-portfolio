@@ -9,9 +9,13 @@ interface ButtonLinkProps {
   href: string;
   children: ReactNode;
   /**
-   * primary   — solid ink, for light sections
+   * primary   — solid button surface, for light sections
    * secondary — outlined, for secondary actions
-   * inverse   — solid paper, for dark sections
+   * inverse   — solid inverse surface, for dark sections
+   *
+   * All variants resolve through tokens, so both themes get correct
+   * contrast automatically (in dark mode the primary button inverts to a
+   * light surface with dark type — it always stays obvious).
    */
   variant?: ButtonLinkVariant;
   withArrow?: boolean;
@@ -22,9 +26,9 @@ const baseClasses =
   "group inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium tracking-wide transition-colors duration-200";
 
 const variantClasses: Record<ButtonLinkVariant, string> = {
-  primary: "bg-ink text-paper hover:bg-accent-deep",
-  secondary: "border border-line bg-transparent text-ink hover:border-ink",
-  inverse: "bg-paper text-ink hover:bg-accent hover:text-paper",
+  primary: "bg-button text-button-foreground hover:bg-button-hover",
+  secondary: "border border-border bg-transparent text-foreground hover:border-foreground",
+  inverse: "bg-inverse-button text-inverse-button-foreground hover:bg-inverse-button-hover hover:text-inverse-button-hover-foreground",
 };
 
 /** The site's only call-to-action element. Always a semantic link. */

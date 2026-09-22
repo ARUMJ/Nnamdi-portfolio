@@ -26,7 +26,7 @@ export function PortraitFigure({ priority = false, className = "" }: PortraitFig
       <div className="relative">
         <div
           aria-hidden="true"
-          className="absolute -inset-3 rounded-2xl border border-line"
+          className="absolute -inset-3 rounded-2xl border border-border"
         />
         <Image
           src="/images/portrait-professional-preview.jpg"
@@ -40,7 +40,7 @@ export function PortraitFigure({ priority = false, className = "" }: PortraitFig
           className="relative w-full h-auto rounded-2xl"
         />
       </div>
-      <figcaption className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-4 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-muted">
+      <figcaption className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-4 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-foreground-muted">
         <span>Arum Jonathan Nnamdi</span>
         <span className="hidden sm:inline">Digital Assistant &amp; Web Developer</span>
       </figcaption>

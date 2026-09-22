@@ -10,23 +10,23 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-line bg-paper">
+    <footer className="border-t border-border bg-background">
       <div className="container-page flex flex-col gap-12 py-14 md:flex-row md:items-start md:justify-between md:gap-8">
         <div className="max-w-xs">
           <div className="flex items-center gap-2.5">
             <BrandMark className="size-7" />
-            <span className="text-sm font-semibold tracking-tight text-ink">
+            <span className="text-sm font-semibold tracking-tight text-foreground">
               {site.name}
             </span>
           </div>
-          <p className="mt-4 text-sm leading-relaxed text-muted">
+          <p className="mt-4 text-sm leading-relaxed text-foreground-muted">
             {site.positioning}. Building practical digital solutions for
             businesses and organizations.
           </p>
         </div>
 
         <nav aria-label="Footer">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground-muted">
             Navigate
           </p>
           <ul className="mt-5 grid gap-2.5">
@@ -34,7 +34,7 @@ export function Footer() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm text-ink transition-colors duration-200 hover:text-accent"
+                  className="text-sm text-foreground transition-colors duration-200 hover:text-accent"
                 >
                   {item.label}
                 </Link>
@@ -44,26 +44,26 @@ export function Footer() {
         </nav>
 
         <div className="max-w-xs">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-foreground-muted">
             Start a project
           </p>
-          <p className="mt-5 text-sm leading-relaxed text-muted">
+          <p className="mt-5 text-sm leading-relaxed text-foreground-muted">
             Have a digital problem to solve? Let&apos;s turn the requirement
             into a practical solution.
           </p>
           <Link
             href={site.primaryCta.href}
-            className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-200 hover:text-accent"
+            className="group mt-5 inline-flex items-center gap-2 text-sm font-medium text-foreground transition-colors duration-200 hover:text-accent"
           >
             {site.primaryCta.label}
             <ArrowIcon className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
-          <p className="mt-5 border-t border-line/70 pt-5 text-sm text-muted">
+          <p className="mt-5 border-t border-border-subtle pt-5 text-sm text-foreground-muted">
             <a
               href={site.contact.whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-ink underline underline-offset-4 transition-colors duration-200 hover:text-accent"
+              className="text-foreground underline underline-offset-4 transition-colors duration-200 hover:text-accent"
             >
               WhatsApp
             </a>{" "}
@@ -72,8 +72,8 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-line/70">
-        <div className="container-page flex flex-col gap-2 py-5 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-border-subtle">
+        <div className="container-page flex flex-col gap-2 py-5 text-xs text-foreground-muted sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {site.name}. All rights reserved.
           </p>

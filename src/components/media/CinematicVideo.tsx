@@ -96,7 +96,7 @@ export function CinematicVideo({
     !unavailable && !userStarted && (!wantsAmbient || reducedMotion || ambientBlocked);
 
   const description = video.alt || `${title} — video`;
-  const rootClasses = `group/cv relative overflow-hidden bg-ink-deep ${className}`.trim();
+  const rootClasses = `group/cv relative overflow-hidden bg-placeholder ${className}`.trim();
 
   /* Capability probe — legacy browsers fall back to poster/still. */
   useEffect(() => {
@@ -279,13 +279,13 @@ export function CinematicVideo({
           className="group/play absolute inset-0 z-20 block h-full w-full"
           aria-label={`Play video: ${description}`}
         >
-          <span className="absolute inset-0 bg-ink-deep/15 transition-colors duration-200 group-hover/play:bg-ink-deep/5" />
+          <span className="absolute inset-0 bg-media-overlay transition-colors duration-200 group-hover/play:bg-media-overlay-soft" />
           <span className="absolute inset-0 flex items-center justify-center">
             <span
               aria-hidden="true"
-              className="flex size-16 items-center justify-center rounded-full border border-paper/40 bg-ink-deep/40 transition-transform duration-200 group-hover/play:scale-105"
+              className="flex size-16 items-center justify-center rounded-full border border-inverse-foreground/40 bg-media-control transition-transform duration-200 group-hover/play:scale-105"
             >
-              <svg viewBox="0 0 24 24" className="ml-1 size-6 fill-paper">
+              <svg viewBox="0 0 24 24" className="ml-1 size-6 fill-inverse-foreground">
                 <path d="M8 5.5v13l11-6.5L8 5.5Z" />
               </svg>
             </span>

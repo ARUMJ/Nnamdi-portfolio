@@ -33,7 +33,7 @@ export function Process() {
     <section
       id="process"
       aria-labelledby="process-heading"
-      className="on-dark relative overflow-hidden bg-ink-deep"
+      className="on-dark relative overflow-hidden bg-inverse-surface"
     >
       <div aria-hidden="true" className="texture-grid absolute inset-0 opacity-40" />
       <div className="container-page relative py-16 sm:py-20 md:py-28">
@@ -49,17 +49,17 @@ export function Process() {
 
         <ol className="reveal mt-10 grid gap-x-8 gap-y-8 sm:mt-14 sm:grid-cols-2 lg:grid-cols-5 lg:gap-x-6">
           {steps.map((step, index) => (
-            <li key={step.title} className="border-t border-line-dark pt-6">
+            <li key={step.title} className="border-t border-inverse-border pt-6">
               <span
                 aria-hidden="true"
-                className="font-display text-4xl tracking-tight text-muted-dark"
+                className="font-display text-4xl tracking-tight text-inverse-muted"
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-3 font-display text-xl font-medium tracking-tight text-paper">
+              <h3 className="mt-3 font-display text-xl font-medium tracking-tight text-inverse-foreground">
                 {step.title}
               </h3>
-              <p className="mt-2 max-w-xs text-sm leading-relaxed text-muted-dark">
+              <p className="mt-2 max-w-xs text-sm leading-relaxed text-inverse-muted">
                 {step.description}
               </p>
             </li>

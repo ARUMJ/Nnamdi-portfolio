@@ -32,12 +32,12 @@ export function CtaBand({
   return (
     <section
       aria-labelledby={headingId}
-      className="on-dark relative overflow-hidden bg-ink-deep"
+      className="on-dark relative overflow-hidden bg-inverse-surface"
     >
       <div aria-hidden="true" className="texture-grid absolute inset-0 opacity-50" />
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_120%,rgba(31,74,60,0.35),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_120%,var(--inverse-glow),transparent_60%)]"
       />
       <div className="container-page relative py-20 text-center md:py-28">
         <div className="reveal mx-auto max-w-2xl">
@@ -48,12 +48,12 @@ export function CtaBand({
           )}
           <h2
             id={headingId}
-            className="mt-5 font-display text-3xl font-medium leading-[1.08] tracking-tight text-balance text-paper sm:text-4xl md:text-5xl"
+            className="mt-5 font-display text-3xl font-medium leading-[1.08] tracking-tight text-balance text-inverse-foreground sm:text-4xl md:text-5xl"
           >
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-4 text-base leading-relaxed text-muted-dark sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-inverse-muted sm:text-lg">
               {subtitle}
             </p>
           )}

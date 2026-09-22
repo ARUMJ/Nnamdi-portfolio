@@ -32,26 +32,26 @@ export default function AboutPage() {
         <div className="lg:col-span-7">
           <div className="reveal">
             <Eyebrow>Background</Eyebrow>
-            <h2 className="mt-5 font-display text-2xl font-medium tracking-tight text-ink md:text-3xl">
+            <h2 className="mt-5 font-display text-2xl font-medium tracking-tight text-foreground md:text-3xl">
               What I work on
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-5 text-base leading-relaxed text-foreground-muted sm:text-lg">
               {site.about.summary}
             </p>
-            <p className="mt-4 text-base leading-relaxed text-muted">
+            <p className="mt-4 text-base leading-relaxed text-foreground-muted">
               {site.about.details}
             </p>
           </div>
 
           <div className="reveal mt-10">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-ink">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-foreground">
               Focus areas
             </h3>
             <ul aria-label="Focus areas" className="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {site.about.focusAreas.map((area) => (
                 <li
                   key={area}
-                  className="flex items-center gap-3 border-t border-line pt-3.5 text-sm font-medium text-ink"
+                  className="flex items-center gap-3 border-t border-border pt-3.5 text-sm font-medium text-foreground"
                 >
                   <span aria-hidden="true" className="size-1 rounded-full bg-accent" />
                   {area}

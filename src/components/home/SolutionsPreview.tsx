@@ -8,7 +8,7 @@ import { solutions } from "@/data/solutions";
  */
 export function SolutionsPreview() {
   return (
-    <section aria-labelledby="solutions-heading" className="bg-paper">
+    <section aria-labelledby="solutions-heading" className="bg-background">
       <div className="container-page py-16 sm:py-20 md:py-28">
         <div className="reveal max-w-2xl">
           <SectionHeading
@@ -24,7 +24,7 @@ export function SolutionsPreview() {
           />
         </div>
 
-        <ul className="reveal mt-12 border-t border-line">
+        <ul className="reveal mt-12 border-t border-border">
           {solutions.map((solution, index) => (
             <SolutionRow key={solution.id} solution={solution} index={index + 1} />
           ))}

@@ -28,31 +28,31 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
     <>
       <span
         aria-hidden="true"
-        className="pt-1.5 font-display text-sm tracking-[0.18em] text-muted"
+        className="pt-1.5 font-display text-sm tracking-[0.18em] text-foreground-muted"
       >
         {number}
       </span>
       <span
         aria-hidden="true"
-        className="hidden pt-1.5 text-ink/70 transition-colors duration-200 group-hover:text-accent sm:block"
+        className="hidden pt-1.5 text-foreground-secondary transition-colors duration-200 group-hover:text-accent sm:block"
       >
         <SolutionIcon name={solution.icon} className="size-6" />
       </span>
       <div className="min-w-0">
         {isDetail ? (
-          <h2 className="font-display text-2xl font-medium tracking-tight text-ink md:text-3xl">
+          <h2 className="font-display text-2xl font-medium tracking-tight text-foreground md:text-3xl">
             {solution.title}
           </h2>
         ) : (
-          <h3 className="font-display text-xl font-medium leading-snug tracking-tight text-ink sm:text-2xl">
+          <h3 className="font-display text-xl font-medium leading-snug tracking-tight text-foreground sm:text-2xl">
             {solution.title}
           </h3>
         )}
-        <span className="mt-2 block max-w-xl text-sm leading-relaxed text-muted sm:text-[0.95rem]">
+        <span className="mt-2 block max-w-xl text-sm leading-relaxed text-foreground-muted sm:text-[0.95rem]">
           {solution.shortDescription}
         </span>
         {isDetail && solution.description && (
-          <span className="mt-4 block max-w-2xl text-sm leading-relaxed text-muted">
+          <span className="mt-4 block max-w-2xl text-sm leading-relaxed text-foreground-muted">
             {solution.description}
           </span>
         )}
@@ -61,7 +61,7 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
             {solution.fits.map((item) => (
               <span
                 key={item}
-                className="rounded-full border border-line bg-paper px-3.5 py-1.5 text-xs font-medium text-muted"
+                className="rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs font-medium text-foreground-muted"
               >
                 {item}
               </span>
@@ -72,7 +72,7 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
       {!isDetail && (
         <span
           aria-hidden="true"
-          className="hidden justify-self-end pt-1.5 text-muted transition-all duration-200 group-hover:translate-x-1 group-hover:text-ink sm:flex"
+          className="hidden justify-self-end pt-1.5 text-foreground-muted transition-all duration-200 group-hover:translate-x-1 group-hover:text-foreground sm:flex"
         >
           <ArrowIcon className="size-5" />
         </span>
@@ -80,8 +80,8 @@ export function SolutionRow({ solution, index, variant = "preview" }: SolutionRo
     </>
   );
 
-  const rowClass = `group grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 border-b border-line py-7 sm:grid-cols-[2.75rem_2.5rem_1fr_2rem] sm:gap-x-5 md:py-8 ${
-    isDetail ? "" : "transition-colors duration-200 hover:bg-white/50"
+  const rowClass = `group grid grid-cols-[auto_1fr] items-start gap-x-4 gap-y-3 border-b border-border py-7 sm:grid-cols-[2.75rem_2.5rem_1fr_2rem] sm:gap-x-5 md:py-8 ${
+    isDetail ? "" : "transition-colors duration-200 hover:bg-surface-hover"
   }`;
 
   if (isDetail) {

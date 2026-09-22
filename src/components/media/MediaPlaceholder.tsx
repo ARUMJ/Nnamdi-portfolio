@@ -21,7 +21,7 @@ function CornerTicks() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10">
       {positions.map((position) => (
-        <span key={position} className={`absolute size-4 border-paper/25 ${position}`} />
+        <span key={position} className={`absolute size-4 border-inverse-foreground/25 ${position}`} />
       ))}
     </div>
   );
@@ -43,38 +43,38 @@ export function MediaPlaceholder({
   className = "",
 }: MediaPlaceholderProps) {
   return (
-    <div className={`relative overflow-hidden bg-ink-deep ${className}`.trim()}>
+    <div className={`relative overflow-hidden bg-placeholder ${className}`.trim()}>
       {/* layered background: evergreen glow + faint grid + film grain */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(115%_95%_at_75%_0%,rgba(31,74,60,0.32),transparent_58%),radial-gradient(90%_75%_at_10%_100%,rgba(245,244,239,0.06),transparent_48%)]"
+        className="absolute inset-0 bg-[radial-gradient(115%_95%_at_75%_0%,var(--placeholder-glow),transparent_58%),radial-gradient(90%_75%_at_10%_100%,var(--placeholder-veil),transparent_48%)]"
       />
       <div aria-hidden="true" className="texture-grid absolute inset-0" />
       <div aria-hidden="true" className="texture-noise absolute inset-0 opacity-5" />
       <CornerTicks />
 
       <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between gap-3 px-6 py-5">
-        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-dark">
+        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-inverse-muted">
           {kicker ?? "Media"}
         </span>
-        <span className="shrink-0 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-dark">
+        <span className="shrink-0 text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-inverse-muted">
           {media === "video" ? "Film" : "Still"}
         </span>
       </div>
 
       <div className="absolute inset-0 z-10 flex items-center justify-center px-6 py-14 text-center">
-        <span className="max-w-md font-display text-xl font-medium leading-snug tracking-tight text-balance text-paper sm:text-2xl lg:text-3xl">
+        <span className="max-w-md font-display text-xl font-medium leading-snug tracking-tight text-balance text-placeholder-foreground sm:text-2xl lg:text-3xl">
           {title}
         </span>
       </div>
 
       {label && (
         <div className="absolute inset-x-0 bottom-0 z-10 flex items-center justify-center gap-3 px-6 py-5">
-          <span aria-hidden="true" className="h-px max-w-12 flex-1 bg-paper/20" />
-          <span className="text-center text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-muted-dark">
+          <span aria-hidden="true" className="h-px max-w-12 flex-1 bg-inverse-foreground/20" />
+          <span className="text-center text-[0.6rem] font-semibold uppercase tracking-[0.18em] text-inverse-muted">
             {label}
           </span>
-          <span aria-hidden="true" className="h-px max-w-12 flex-1 bg-paper/20" />
+          <span aria-hidden="true" className="h-px max-w-12 flex-1 bg-inverse-foreground/20" />
         </div>
       )}
     </div>

@@ -10,7 +10,7 @@ import { site } from "@/data/site";
  */
 export function AboutPreview() {
   return (
-    <section aria-labelledby="about-preview-heading" className="border-t border-line">
+    <section aria-labelledby="about-preview-heading" className="border-t border-border">
       <div className="container-page grid items-center gap-12 py-16 sm:py-20 md:py-28 lg:grid-cols-12 lg:gap-16">
         <div className="mx-auto w-full max-w-sm lg:col-span-5">
           <div className="reveal">
@@ -23,14 +23,14 @@ export function AboutPreview() {
             <Eyebrow>About</Eyebrow>
             <h2
               id="about-preview-heading"
-              className="mt-5 font-display text-3xl font-medium leading-[1.08] tracking-tight text-balance text-ink sm:text-4xl"
+              className="mt-5 font-display text-3xl font-medium leading-[1.08] tracking-tight text-balance text-foreground sm:text-4xl"
             >
               The person behind the solutions
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground-muted sm:text-lg">
               {site.about.summary}
             </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground-muted">
               {site.about.details}
             </p>
           </div>

@@ -9,6 +9,7 @@ import "@fontsource-variable/instrument-sans/wght.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { site } from "@/data/site";
+import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
 
@@ -59,8 +60,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
+        {/*
+          Theme bootstrap: runs during the initial HTML parse, before first
+          paint, so the stored/system theme is applied with no flash of the
+          wrong theme. Mirrored at runtime by src/lib/theme.ts.
+        */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript() }} />
         <a href="#main" className="skip-link">
           Skip to content
         </a>
