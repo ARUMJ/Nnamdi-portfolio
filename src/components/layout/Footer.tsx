@@ -77,7 +77,7 @@ export function Footer() {
           <p>
             © {year} {site.name}. All rights reserved.
           </p>
-          <p>Practical digital solutions — built with Next.js.</p>
+          <p>Practical digital solutions built with Next.js.</p>
         </div>
       </div>
     </footer>

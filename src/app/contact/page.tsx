@@ -8,22 +8,22 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Start a project with Arum Jonathan Nnamdi — practical digital solutions for businesses and organizations.",
+    "Start a project with Arum Jonathan Nnamdi. Practical digital solutions for businesses and organizations.",
 };
 
 /**
- * Brief guidance for a first conversation. Category-level only —
- * nothing here invents services, guarantees or commitments.
+ * Brief guidance for a first conversation. Category level only.
+ * Nothing here invents services, guarantees or commitments.
  */
 const briefItems = [
   {
     title: "The problem",
     description:
-      "The digital need or problem you're facing — in a few honest sentences.",
+      "The digital need or problem you are facing, in a few honest sentences.",
   },
   {
     title: "The audience",
-    description: "Who the solution is for — customers, members, staff, students.",
+    description: "Who the solution is for: customers, members, staff, students.",
   },
   {
     title: "The outcome",
@@ -31,13 +31,13 @@ const briefItems = [
   },
   {
     title: "The timing",
-    description: "Any timeframe you have in mind — useful, never binding.",
+    description: "Any timeframe you have in mind. Useful but never binding.",
   },
 ] as const;
 
 /**
  * Contact page: a brief guide plus the real contact channel. WhatsApp is the
- * only channel published — no form backend and no invented email address.
+ * only channel published. No form backend and no invented email address.
  *
  * Build 06: staggered reveals for brief items, tactile card motion.
  */
@@ -47,7 +47,7 @@ export default function ContactPage() {
       <PageHeader
         eyebrow="Contact"
         title="Start a Project"
-        lead="Tell me about the digital problem — the business need, the people it's for, and what success looks like. From there, let's define the practical solution together."
+        lead="Tell me about the digital problem, the business need, the people it is for and what success looks like. From there let us define the practical solution together."
       />
 
       <section aria-label="How to get in touch" className="container-page grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
@@ -109,7 +109,7 @@ export default function ContactPage() {
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-foreground-muted">
                 The fastest way to reach me. Send the brief above and
-                we&apos;ll take it from there.
+                we will take it from there.
               </p>
               <p className="mt-5 font-display text-xl tracking-tight text-foreground">
                 <span className="sr-only">WhatsApp number: </span>
