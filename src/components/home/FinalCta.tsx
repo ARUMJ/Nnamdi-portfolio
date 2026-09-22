@@ -15,7 +15,7 @@ export function FinalCta() {
           href={site.contact.whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full border border-paper/40 px-6 py-3 text-sm font-medium tracking-wide text-paper transition-colors duration-200 hover:border-paper hover:bg-paper/5"
+          className="inline-flex items-center justify-center rounded-full border border-inverse-foreground/40 px-6 py-3 text-sm font-medium tracking-wide text-inverse-foreground transition-colors duration-200 hover:border-inverse-foreground hover:bg-inverse-foreground/5"
         >
           Chat on WhatsApp
         </a>

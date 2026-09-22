@@ -25,7 +25,9 @@ export function NavLinks() {
               href={item.href}
               aria-current={isActive ? "page" : undefined}
               className={`relative pb-1 text-sm transition-colors duration-200 ${
-                isActive ? "font-medium text-ink" : "text-muted hover:text-ink"
+                isActive
+                  ? "font-medium text-foreground"
+                  : "text-foreground-muted hover:text-foreground"
               }`}
             >
               {item.label}

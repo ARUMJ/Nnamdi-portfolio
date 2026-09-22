@@ -26,7 +26,7 @@ export default function SolutionsPage() {
       />
 
       <section aria-label="Solution areas" className="container-page py-4">
-        <ul className="border-t border-line">
+        <ul className="border-t border-border">
           {solutions.map((solution, index) => (
             <SolutionRow
               key={solution.id}

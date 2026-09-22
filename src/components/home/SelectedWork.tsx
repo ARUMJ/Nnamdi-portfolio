@@ -9,7 +9,7 @@ import { projects } from "@/data/projects";
  */
 export function SelectedWork() {
   return (
-    <section aria-labelledby="selected-work-heading" className="border-t border-line">
+    <section aria-labelledby="selected-work-heading" className="border-t border-border">
       <div className="container-page py-16 sm:py-20 md:py-28">
         <div className="reveal flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <SectionHeading

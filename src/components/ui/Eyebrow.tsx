@@ -18,13 +18,13 @@ export function Eyebrow({
   return (
     <p
       className={`flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.2em] ${
-        tone === "inverse" ? "text-muted-dark" : "text-accent"
+        tone === "inverse" ? "text-inverse-muted" : "text-accent"
       } ${className}`.trim()}
     >
       {withRule && (
         <span
           aria-hidden="true"
-          className={`h-px w-8 ${tone === "inverse" ? "bg-line-dark" : "bg-accent/40"}`}
+          className={`h-px w-8 ${tone === "inverse" ? "bg-inverse-border" : "bg-accent/40"}`}
         />
       )}
       {children}

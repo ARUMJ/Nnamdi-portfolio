@@ -87,3 +87,29 @@ public/
   the repository; use optimized static/CDN hosting and reference by URL.
 - The hero "Portfolio film" slot and the About "portrait" slot are
   deliberate branded placeholders with the same treatment.
+
+## Theming (light & dark)
+
+The site supports a light theme (the original design, unchanged) and a
+deliberately designed dark theme, switched from the header and persisted in
+`localStorage`. An explicit choice always wins; without one the system
+preference is respected — and followed live until the visitor chooses.
+
+- **Tokens**: `src/app/globals.css` defines the raw palette on `:root`
+  (light) and `.dark` (dark), registered as Tailwind utilities through
+  `@theme inline`. Components consume **semantic tokens only**
+  (`bg-background`, `text-foreground`, `border-border`, `bg-button`,
+  `text-inverse-muted`, …) and never branch on the active theme.
+- **No flash**: an inline bootstrap script in `src/app/layout.tsx` applies
+  the theme during the initial HTML parse, before first paint.
+- **Controller**: `src/lib/theme.ts` (persistence + system fallback),
+  `src/hooks/useTheme.ts` (reactive read of the `<html>` class), and
+  `src/components/layout/ThemeToggle.tsx` (accessible sun/moon switch).
+- **Motion**: theme switches use a short crossfade that is skipped on
+  page loads and fully disabled under `prefers-reduced-motion`.
+- **Media is never filtered** — videos, posters, images and placeholders
+  render with their original colors in both themes; only the surrounding
+  UI (surfaces, type, borders, controls) re-themes.
+
+See `docs/build-05-theming.md` for the full token table and validation
+results, and `tests/build05-theme.cjs` for the browser test suite.

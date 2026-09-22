@@ -47,7 +47,7 @@ export function MobileNav() {
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors duration-200 hover:border-ink md:hidden"
+        className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors duration-200 hover:border-foreground md:hidden"
       >
         <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
         <svg
@@ -77,21 +77,23 @@ export function MobileNav() {
         tabIndex={-1}
         inert={!open}
         aria-hidden={!open}
-        className={`fixed inset-x-0 top-16 z-40 grid overflow-hidden bg-paper transition-[grid-template-rows] duration-300 ease-out outline-none md:hidden ${
-          open ? "grid-rows-[1fr] border-b border-line shadow-xl shadow-ink/10" : "grid-rows-[0fr]"
+        className={`fixed inset-x-0 top-16 z-40 grid overflow-hidden bg-background transition-[grid-template-rows] duration-300 ease-out outline-none md:hidden ${
+          open
+            ? "grid-rows-[1fr] border-b border-border shadow-xl shadow-elevation"
+            : "grid-rows-[0fr]"
         }`}
       >
         <nav aria-label="Mobile" className="min-h-0 overflow-hidden">
           <ul className="container-page flex flex-col py-4">
             {site.nav.map((item) => (
-              <li key={item.href} className="border-b border-line/70 last:border-b-0">
+              <li key={item.href} className="border-b border-border-subtle last:border-b-0">
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="group flex items-center justify-between py-4 font-display text-xl text-ink transition-colors duration-200 hover:text-accent"
+                  className="group flex items-center justify-between py-4 font-display text-xl text-foreground transition-colors duration-200 hover:text-accent"
                 >
                   {item.label}
-                  <ArrowIcon className="size-4 text-muted transition-transform duration-200 group-hover:translate-x-1" />
+                  <ArrowIcon className="size-4 text-foreground-muted transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
               </li>
             ))}
@@ -99,7 +101,7 @@ export function MobileNav() {
               <Link
                 href={site.primaryCta.href}
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-paper transition-colors duration-200 hover:bg-accent-deep"
+                className="flex items-center justify-center gap-2 rounded-full bg-button px-6 py-3.5 text-sm font-medium text-button-foreground transition-colors duration-200 hover:bg-button-hover"
               >
                 {site.primaryCta.label}
                 <ArrowIcon className="size-4" />

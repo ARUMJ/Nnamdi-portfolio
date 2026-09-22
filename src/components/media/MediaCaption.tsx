@@ -16,10 +16,10 @@ export function MediaCaption({ label, caption, className = "" }: MediaCaptionPro
 
   return (
     <figcaption
-      className={`text-sm leading-relaxed text-muted ${className}`.trim()}
+      className={`text-sm leading-relaxed text-foreground-muted ${className}`.trim()}
     >
       {label && (
-        <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-ink">
+        <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-foreground">
           {label}
         </span>
       )}

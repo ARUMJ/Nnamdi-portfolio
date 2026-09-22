@@ -1,21 +1,155 @@
 @import "tailwindcss";
 
+/*
+ * Dark mode is class-based: the `.dark` class on <html> is applied by the
+ * inline theme bootstrap before first paint (see src/app/layout.tsx) and
+ * toggled at runtime by the header theme switch (see src/lib/theme.ts).
+ */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ------------------------------------------------------------------ */
-/* Design tokens — warm paper neutrals, deep ink, one evergreen accent */
+/* Design tokens                                                       */
+/*                                                                     */
+/* Warm paper neutrals, deep ink, one evergreen accent.                */
+/*                                                                     */
+/* LIGHT values are the existing portfolio baseline, unchanged.        */
+/* DARK values are a deliberately designed premium alternative:        */
+/* deep-charcoal tonal layering + warm off-white type + the same       */
+/* evergreen accent lifted to a readable sage. Not an inversion.       */
+/*                                                                     */
+/* Components never test for light or dark — they consume the semantic */
+/* utilities registered below (bg-background, text-foreground, …).     */
+/* Each utility resolves to the active theme's raw value at render     */
+/* time, so switching `.dark` on <html> re-themes the entire site.     */
 /* ------------------------------------------------------------------ */
 
-@theme {
-  --color-paper: #f5f4ef;
-  --color-paper-deep: #eceae0;
-  --color-ink: #1a1c1f;
-  --color-ink-2: #24272b;
-  --color-ink-deep: #101214;
-  --color-line: #d9d6ca;
-  --color-line-dark: #2c3034;
-  --color-muted: #585c63;
-  --color-muted-dark: #a5a9ad;
-  --color-accent: #1f4a3c;
-  --color-accent-deep: #16382d;
+:root {
+  /* Surfaces */
+  --background: #f5f4ef; /* page (was --color-paper) */
+  --surface: #eceae0; /* secondary / elevated surface (was --color-paper-deep) */
+  --surface-hover: rgb(255 255 255 / 0.55); /* row hover tint (was bg-white/50) */
+  --inverse-surface: #101214; /* always-dark cinematic bands (was --color-ink-deep) */
+  --placeholder-surface: #101214; /* media placeholder frames */
+  --placeholder-foreground: #f5f4ef; /* type on placeholders */
+
+  /* Type */
+  --foreground: #1a1c1f; /* primary text (was --color-ink) */
+  --foreground-secondary: #5c5d5e; /* secondary text, ≈ ink at 70% (was text-ink/70) */
+  --foreground-muted: #585c63; /* muted text (was --color-muted) */
+  --inverse-foreground: #f5f4ef; /* type on cinematic bands (was --color-paper) */
+  --inverse-muted: #a5a9ad; /* muted type on cinematic bands (was --color-muted-dark) */
+
+  /* Lines */
+  --border: #d9d6ca; /* (was --color-line) */
+  --border-subtle: #e2e0d5; /* fainter border (was border-line/70) */
+  --inverse-border: #2c3034; /* borders on cinematic bands (was --color-line-dark) */
+
+  /* Accent — the portfolio's evergreen, used with restraint. */
+  --accent: #1f4a3c;
+  --accent-hover: #16382d; /* (was --color-accent-deep) */
+
+  /* Buttons */
+  --button-surface: #1a1c1f; /* primary button (was bg-ink) */
+  --button-foreground: #f5f4ef;
+  --button-hover: #16382d; /* (was hover:bg-accent-deep) */
+  --inverse-button-surface: #f5f4ef; /* buttons on cinematic bands (was bg-paper) */
+  --inverse-button-foreground: #1a1c1f;
+  --inverse-button-hover: #1f4a3c;
+  --inverse-button-hover-foreground: #f5f4ef;
+
+  /* Interaction */
+  --focus-ring: #1f4a3c;
+  --selection-surface: #1f4a3c;
+  --selection-foreground: #f5f4ef;
+  --media-overlay: rgb(16 18 20 / 0.15); /* pre-play video scrim (was bg-ink-deep/15) */
+  --media-overlay-soft: rgb(16 18 20 / 0.05); /* scrim on hover (was bg-ink-deep/5) */
+  --media-control-surface: rgb(16 18 20 / 0.4); /* play-control disc (was bg-ink-deep/40) */
+  --elevation: rgb(26 28 31 / 0.1); /* soft shadow (was shadow-ink/10) */
+  --inverse-glow: rgb(31 74 60 / 0.35); /* CtaBand radial glow */
+  --placeholder-glow: rgb(31 74 60 / 0.32); /* placeholder radial glow */
+  --placeholder-veil: rgb(245 244 239 / 0.06); /* placeholder light veil */
+}
+
+.dark {
+  --background: #171a1f; /* deep charcoal — never pure black */
+  --surface: #1e2127; /* elevated charcoal */
+  --surface-hover: rgb(242 240 234 / 0.06);
+  --inverse-surface: #0f1216; /* cinematic bands sit one tone below the page */
+  --placeholder-surface: #101318;
+  --placeholder-foreground: #f2f0ea;
+
+  --foreground: #f2f0ea; /* warm off-white */
+  --foreground-secondary: #c8c5bc;
+  --foreground-muted: #9b9d97; /* readable warm gray — never faint */
+  --inverse-foreground: #f2f0ea;
+  --inverse-muted: #9fa19b;
+
+  --border: #313742;
+  --border-subtle: #282d36;
+  --inverse-border: #2a2f38;
+
+  /* The same evergreen identity, lifted to a sage that stays readable
+     on charcoal for eyebrows, links, emphasis and the active nav rule. */
+  --accent: #8cc2aa;
+  --accent-hover: #abd8c2;
+
+  --button-surface: #f2f0ea; /* primary buttons invert — always obvious */
+  --button-foreground: #171a1f;
+  --button-hover: #e3e0d5;
+  --inverse-button-surface: #f2f0ea;
+  --inverse-button-foreground: #171a1f;
+  --inverse-button-hover: #8cc2aa;
+  --inverse-button-hover-foreground: #101318;
+
+  --focus-ring: #9ed4bd; /* highly visible on both charcoal and ink bands */
+  --selection-surface: #35594c; /* mid evergreen — keeps the accent identity */
+  --selection-foreground: #f2f0ea;
+  --media-overlay: rgb(10 12 14 / 0.22);
+  --media-overlay-soft: rgb(10 12 14 / 0.08);
+  --media-control-surface: rgb(10 12 14 / 0.45);
+  --elevation: rgb(0 0 0 / 0.5);
+  --inverse-glow: rgb(84 145 118 / 0.18);
+  --placeholder-glow: rgb(84 145 118 / 0.22);
+  --placeholder-veil: rgb(242 240 234 / 0.05);
+}
+
+/*
+ * Register the semantic tokens as Tailwind utilities. `inline` makes each
+ * utility reference the raw variable at use time, so the whole site
+ * re-themes from one class on <html> — no component ever branches on the
+ * active theme.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-inverse-surface: var(--inverse-surface);
+  --color-placeholder: var(--placeholder-surface);
+  --color-placeholder-foreground: var(--placeholder-foreground);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-inverse-foreground: var(--inverse-foreground);
+  --color-inverse-muted: var(--inverse-muted);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-inverse-border: var(--inverse-border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-button: var(--button-surface);
+  --color-button-foreground: var(--button-foreground);
+  --color-button-hover: var(--button-hover);
+  --color-inverse-button: var(--inverse-button-surface);
+  --color-inverse-button-foreground: var(--inverse-button-foreground);
+  --color-inverse-button-hover: var(--inverse-button-hover);
+  --color-inverse-button-hover-foreground: var(--inverse-button-hover-foreground);
+  --color-focus-ring: var(--focus-ring);
+  --color-selection: var(--selection-surface);
+  --color-selection-foreground: var(--selection-foreground);
+  --color-media-overlay: var(--media-overlay);
+  --color-media-overlay-soft: var(--media-overlay-soft);
+  --color-media-control: var(--media-control-surface);
+  --color-elevation: var(--elevation);
 }
 
 @theme {
@@ -29,6 +163,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  /* Native chrome (scrollbars, form controls) follows the theme. */
+  html.dark {
+    color-scheme: dark;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -38,18 +178,18 @@
   }
 
   body {
-    @apply bg-paper font-sans text-ink antialiased;
+    @apply bg-background font-sans text-foreground antialiased;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background-color: var(--color-accent);
-    color: var(--color-paper);
+    background-color: var(--color-selection);
+    color: var(--color-selection-foreground);
   }
 
   /* Visible, consistent keyboard focus everywhere. */
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 3px;
   }
 }
@@ -64,7 +204,7 @@
 
   /* Skip link — hidden until it receives keyboard focus. */
   .skip-link {
-    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-transform duration-200 focus-visible:translate-y-0;
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-button px-5 py-2.5 text-sm font-medium text-button-foreground transition-transform duration-200 focus-visible:translate-y-0;
   }
 
   /* Cinematic textures for media placeholders. */
@@ -79,9 +219,10 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
   }
 
-  /* Keyboard focus on dark sections — the accent ring is low contrast there. */
+  /* Keyboard focus on cinematic (always-dark) sections — the accent ring
+     is low contrast on the light theme's ink bands. */
   .on-dark :focus-visible {
-    outline-color: var(--color-paper);
+    outline-color: var(--color-inverse-foreground);
   }
 }
 
@@ -142,6 +283,27 @@
       animation-timeline: view();
       animation-range: entry 0% entry 40%;
     }
+  }
+
+  /* Theme switch: a short, unified color crossfade applied only while the
+     visitor toggles themes (src/lib/theme.ts adds .theme-switching for the
+     duration of the switch). Never present on page load, and never active
+     under reduced motion — the global reduce rule below kills transitions
+     outright. */
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition-property:
+      background-color,
+      border-color,
+      color,
+      fill,
+      stroke,
+      outline-color,
+      box-shadow;
+    transition-duration: 250ms;
+    transition-timing-function: ease;
   }
 }
 

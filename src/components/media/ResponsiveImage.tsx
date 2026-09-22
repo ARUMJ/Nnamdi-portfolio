@@ -43,7 +43,7 @@ export function ResponsiveImage({
 
   if (failed) {
     return (
-      <div className={`relative overflow-hidden bg-ink-deep ${className}`.trim()}>
+      <div className={`relative overflow-hidden bg-placeholder ${className}`.trim()}>
         <div className="absolute inset-0">
           <MediaPlaceholder
             media="still"
@@ -58,7 +58,7 @@ export function ResponsiveImage({
   }
 
   return (
-    <div className={`group/img relative overflow-hidden bg-ink-deep ${className}`.trim()}>
+    <div className={`group/img relative overflow-hidden bg-placeholder ${className}`.trim()}>
       <Image
         src={image.src}
         alt={image.alt || `${title} project image`}

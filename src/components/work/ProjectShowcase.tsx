@@ -57,14 +57,14 @@ export function ProjectMeta({ project, className = "" }: ProjectMetaProps) {
       className={`flex flex-wrap items-start justify-between gap-x-6 gap-y-2 ${className}`.trim()}
     >
       <div className="min-w-0">
-        <h3 className="font-display text-xl font-medium tracking-tight text-ink">
+        <h3 className="font-display text-xl font-medium tracking-tight text-foreground">
           {project.title}
         </h3>
         {project.category && (
-          <p className="mt-1 text-sm text-muted">{project.category}</p>
+          <p className="mt-1 text-sm text-foreground-muted">{project.category}</p>
         )}
         {project.shortDescription && (
-          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-foreground-muted">
             {project.shortDescription}
           </p>
         )}
@@ -74,7 +74,7 @@ export function ProjectMeta({ project, className = "" }: ProjectMetaProps) {
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="group inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-colors duration-200 hover:text-accent"
+          className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors duration-200 hover:text-accent"
         >
           Visit live
           <ArrowIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
