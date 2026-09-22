@@ -153,9 +153,9 @@
 }
 
 @theme {
-  /* Self-hosted variable fonts (see src/app/layout.tsx imports). */
-  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
-  --font-sans: "Instrument Sans Variable", "Helvetica Neue", system-ui, sans-serif;
+  /* Self-hosted variable fonts — Build 07 (see src/app/layout.tsx). */
+  --font-display: "Plus Jakarta Sans Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ------------------------------- base ------------------------------ */
