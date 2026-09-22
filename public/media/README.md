@@ -70,3 +70,17 @@ public/media/
 
 Until a file exists for a slot, the components render the branded
 placeholder — an empty folder here changes nothing on the site.
+
+## Build 04 delivered films
+
+All five projects — Stayora, D-Connect, Prince M, PureNest and PNK / Clarean — have optimized `showcase.mp4` and
+`showcase-poster.jpg` files, plus `desktop.jpg` and `mobile.jpg` gallery captures.
+They are registered centrally in `src/data/project-media.ts` and referenced by
+project/site data. All films are 21 seconds, silent H.264, 1280×800 (16:10),
+1.06–2.03 MB. Keep their full frame visible: disclosures are part of the export.
+
+Source commits, capture method, editorial limitations, shot lists, file sizes and
+verification are recorded in [`docs/build-04-media.md`](../../docs/build-04-media.md).
+The [revision report](../../docs/build-04-revision.md) corrects the original main-only
+Stayora/PNK audit and records capture from their implemented development branches.
+Stayora is a mock-data frontend demo; PNK is a development preview, not a production store.
