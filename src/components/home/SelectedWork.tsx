@@ -18,8 +18,8 @@ export function SelectedWork() {
             <SectionHeading
               id="selected-work-heading"
               eyebrow="Selected work"
-              title="Digital solutions & concepts"
-              lead="A selection of digital projects and concepts I’ve worked on. Explore the real interfaces, on desktop and mobile."
+              title="Digital solutions and concepts"
+              lead="A selection of digital projects and concepts I have worked on. Explore the real interfaces, on desktop and mobile."
             />
           </div>
           <div

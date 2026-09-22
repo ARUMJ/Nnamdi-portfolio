@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
 
-// Self-hosted variable fonts (npm, no build-time network fetch):
-// Fraunces (display serif, full axis set incl. italic) + Instrument Sans.
-import "@fontsource-variable/fraunces/full.css";
-import "@fontsource-variable/fraunces/full-italic.css";
-import "@fontsource-variable/instrument-sans/wght.css";
+// Self-hosted variable fonts — Build 07
+// Display: Plus Jakarta Sans Variable (incl. italic for emphasized headings)
+// Body: Inter Variable — professional, highly readable.
+import "@fontsource-variable/plus-jakarta-sans/wght.css";
+import "@fontsource-variable/plus-jakarta-sans/wght-italic.css";
+import "@fontsource-variable/inter/wght.css";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -17,8 +18,8 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.positioning}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} | ${site.positioning}`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   openGraph: {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — ${site.positioning}`,
+    title: `${site.name} | ${site.positioning}`,
     description: site.description,
     images: [
       {
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.positioning}`,
+    title: `${site.name} | ${site.positioning}`,
     description: site.description,
     images: ["/og.jpg"],
   },

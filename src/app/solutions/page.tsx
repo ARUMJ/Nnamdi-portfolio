@@ -8,7 +8,7 @@ import { solutions } from "@/data/solutions";
 export const metadata: Metadata = {
   title: "Solutions",
   description:
-    "Practical digital solutions for businesses and organizations — business websites, web products and digital experiences, website improvement, digital & technical support, and education & organizational technology.",
+    "Practical digital solutions for businesses and organizations including business websites, web products and digital experiences, website improvement, digital and technical support and education and organizational technology.",
 };
 
 export default function SolutionsPage() {
@@ -22,7 +22,7 @@ export default function SolutionsPage() {
             <em className="italic text-accent">solved practically</em>.
           </>
         }
-        lead="Each solution starts the same way: understand the business need first, then design and build the appropriate answer. Here is where I help."
+        lead="Each solution starts the same way. Understand the business need first, then design and build the right answer. Here is where I help."
       />
 
       <section aria-label="Solution areas" className="container-page py-4">
@@ -41,8 +41,8 @@ export default function SolutionsPage() {
 
       <CtaBand
         eyebrow="Next step"
-        title="Not sure which one fits?"
-        subtitle="Describe the problem — the right solution usually becomes obvious."
+        title="Not sure which one fits"
+        subtitle="Describe the problem. The right solution usually becomes obvious."
         ctaLabel="Start a Project"
         ctaHref="/contact"
       />

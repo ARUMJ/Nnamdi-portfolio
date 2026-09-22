@@ -95,7 +95,7 @@ export function CinematicVideo({
   const showPlayButton =
     !unavailable && !userStarted && (!wantsAmbient || reducedMotion || ambientBlocked);
 
-  const description = video.alt || `${title} — video`;
+  const description = video.alt || `${title} video`;
   const rootClasses = `group/cv relative overflow-hidden bg-placeholder ${className}`.trim();
 
   /* Capability probe — legacy browsers fall back to poster/still. */
