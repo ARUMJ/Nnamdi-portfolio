@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
 
-// Self-hosted variable fonts — Build 07
-// Display: Plus Jakarta Sans Variable (incl. italic for emphasized headings)
-// Body: Inter Variable — professional, highly readable.
-import "@fontsource-variable/plus-jakarta-sans/wght.css";
-import "@fontsource-variable/plus-jakarta-sans/wght-italic.css";
-import "@fontsource-variable/inter/wght.css";
+// Self-hosted variable fonts with unicode subsets and swap display.
+import "@fontsource-variable/dm-sans/wght.css";
+import "@fontsource-variable/dm-sans/wght-italic.css";
+import "@fontsource-variable/source-sans-3/wght.css";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";

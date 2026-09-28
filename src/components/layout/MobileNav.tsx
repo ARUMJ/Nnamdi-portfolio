@@ -90,7 +90,7 @@ export function MobileNav() {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="group flex items-center justify-between py-4 font-display text-xl text-foreground transition-colors duration-200 hover:text-accent"
+                  className="group flex items-center justify-between py-4 font-sans text-xl font-medium text-foreground transition-colors duration-200 hover:text-accent"
                 >
                   {item.label}
                   <ArrowIcon className="size-4 text-foreground-muted transition-transform duration-200 group-hover:translate-x-1" />

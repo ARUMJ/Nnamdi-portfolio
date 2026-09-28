@@ -153,9 +153,9 @@
 }
 
 @theme {
-  /* Self-hosted variable fonts — Build 07 (see src/app/layout.tsx). */
-  --font-display: "Plus Jakarta Sans Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Inter Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  /* Self-hosted variable fonts (see src/app/layout.tsx). */
+  --font-display: "DM Sans Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Source Sans 3 Variable", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ------------------------------- base ------------------------------ */
