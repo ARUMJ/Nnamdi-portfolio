@@ -1,6 +1,5 @@
 import { ProjectMediaFrame } from "@/components/media/ProjectMediaFrame";
 import { Tilt } from "@/components/motion/Tilt";
-import { ArrowIcon } from "@/components/ui/ArrowIcon";
 import type { Project } from "@/lib/types";
 
 interface ProjectShowcaseProps {
@@ -32,14 +31,13 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
         style={{ ["--reveal-delay" as string]: "0ms" }}
       >
         <Tilt className="rounded-xl">
-          <div className="overflow-hidden rounded-xl border border-transparent transition-all duration-300 group-hover:border-border/60 group-hover:shadow-xl group-hover:shadow-elevation">
-            <div className="media-frame">
-              <ProjectMediaFrame
-                project={featured}
-                hoverZoom
-                className="aspect-[16/10] rounded-xl"
-              />
-            </div>
+          <div className="rounded-xl border border-transparent transition-all duration-300 group-hover:border-border/60 group-hover:shadow-xl group-hover:shadow-elevation">
+            <ProjectMediaFrame
+              project={featured}
+              hoverZoom
+              showLiveLink
+              className="aspect-[16/10] rounded-xl"
+            />
           </div>
           <div className="tilt-meta">
             <ProjectMeta project={featured} className="mt-4" />
@@ -57,14 +55,13 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
               style={{ ["--reveal-delay" as string]: `${(index + 1) * 80}ms` }}
             >
               <Tilt className="rounded-xl">
-                <div className="overflow-hidden rounded-xl border border-transparent transition-all duration-300 group-hover:border-border/60 group-hover:shadow-xl group-hover:shadow-elevation">
-                  <div className="media-frame">
-                    <ProjectMediaFrame
-                      project={project}
-                      hoverZoom
-                      className={project.featuredMedia ? "aspect-[16/10] rounded-xl" : "aspect-[4/3] rounded-xl"}
-                    />
-                  </div>
+                <div className="rounded-xl border border-transparent transition-all duration-300 group-hover:border-border/60 group-hover:shadow-xl group-hover:shadow-elevation">
+                  <ProjectMediaFrame
+                    project={project}
+                    hoverZoom
+                    showLiveLink
+                    className={project.featuredMedia ? "aspect-[16/10] rounded-xl" : "aspect-[4/3] rounded-xl"}
+                  />
                 </div>
                 <div className="tilt-meta">
                   <ProjectMeta project={project} className="mt-4" />
@@ -102,17 +99,6 @@ export function ProjectMeta({ project, className = "" }: ProjectMetaProps) {
           </p>
         )}
       </div>
-      {project.liveUrl && (
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="link-underline group inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-colors duration-200 hover:text-accent"
-        >
-          Visit live
-          <ArrowIcon className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-        </a>
-      )}
     </div>
   );
 }
