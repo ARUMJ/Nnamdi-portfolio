@@ -18,6 +18,7 @@ export const projects: Project[] = [
       "Prince M desktop homepage with black and gold typography and an illustrative living room render.",
       "Prince M homepage at a 390px mobile viewport, with stacked headings and service links.",
     ),
+    liveUrl: "https://prince-m-furnishing-concept-weld.vercel.app",
     githubUrl: "https://github.com/ARUMJ/prince-m-furnishing-concept",
   },
   {
@@ -34,6 +35,7 @@ export const projects: Project[] = [
       "D Connect desktop homepage with foodstuff imagery and Browse Products and WhatsApp links.",
       "D Connect mobile Rice and Grains and Garri and Cassava category cards.",
     ),
+    liveUrl: "https://d-connect-delivery-services.vercel.app",
     githubUrl: "https://github.com/ARUMJ/d-connect-delivery-services",
   },
   {
@@ -49,6 +51,7 @@ export const projects: Project[] = [
       "PureNest fictional cleaning company concept homepage with service navigation and a living room image.",
       "PureNest fictional concept mobile FAQ with the recurring cleaning answer expanded.",
     ),
+    liveUrl: "https://purenest-cleaning-website-sooty.vercel.app",
     githubUrl: "https://github.com/ARUMJ/purenest-cleaning-website",
   },
   {
@@ -65,6 +68,7 @@ export const projects: Project[] = [
       "Stayora frontend demo homepage: featured mock property cards with sample prices and ratings.",
       "Stayora frontend demo at 390px: a mock Mountain view cabin detail page with sample host information.",
     ),
+    liveUrl: "https://stayora-595x3b9r7-gospelboys.vercel.app",
     githubUrl: "https://github.com/ARUMJ/stayora/tree/arena/019fdeda-stayora",
   },
   {
@@ -81,6 +85,7 @@ export const projects: Project[] = [
       "PNK and Clarean development preview homepage, with its supplied brand mark and household product photographs.",
       "PNK and Clarean mobile Vacuum Flasks category page, with a supplied food jar photograph and enquiry link.",
     ),
+    liveUrl: "https://pnk-enterprises-website-6yfgbwop6-gospelboys.vercel.app",
     githubUrl: "https://github.com/ARUMJ/pnk-enterprises-website/tree/dev",
   },
 ];

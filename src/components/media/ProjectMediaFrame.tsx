@@ -24,6 +24,8 @@ interface ProjectMediaFrameProps {
   priority?: boolean;
   /** Subtle editorial zoom on hover (showcase frames). */
   hoverZoom?: boolean;
+  /** Show a dedicated live site link directly after the showcase media. */
+  showLiveLink?: boolean;
 }
 
 /**
@@ -48,6 +50,7 @@ export function ProjectMediaFrame({
   sizes,
   priority = false,
   hoverZoom = false,
+  showLiveLink = false,
 }: ProjectMediaFrameProps) {
   const media = resolveProjectMedia(project, slot);
 
@@ -83,11 +86,22 @@ export function ProjectMediaFrame({
     />
   );
 
-  if (!media.label && !media.caption) return frame;
+  if (!media.label && !media.caption && !(showLiveLink && project.liveUrl)) return frame;
 
   return (
     <figure className="min-w-0">
-      {frame}
+      {showLiveLink ? <div className="media-frame overflow-hidden rounded-xl">{frame}</div> : frame}
+      {showLiveLink && project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${project.title} live website (opens in a new tab)`}
+          className="mx-1 mt-3 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-foreground underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-accent hover:decoration-current focus-visible:rounded-sm"
+        >
+          View Live Website <span aria-hidden="true">↗</span>
+        </a>
+      )}
       <MediaCaption label={media.label} caption={media.caption} className="mt-3" />
     </figure>
   );
