@@ -30,7 +30,7 @@ export function MediaGallery({ items, title, columns = 2, className = "" }: Medi
 
   return (
     <ul
-      aria-label={`${title} — project media`}
+      aria-label={`${title} project media`}
       className={`grid list-none grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 ${
         columns === 3 ? "lg:grid-cols-3" : ""
       } ${className}`.trim()}

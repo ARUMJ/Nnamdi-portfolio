@@ -7,9 +7,9 @@
 export const site = {
   name: "Arum Jonathan Nnamdi",
   shortName: "Arum Nnamdi",
-  positioning: "Digital Assistant & Web Developer",
+  positioning: "Digital Assistant and Web Developer",
   description:
-    "Building practical digital solutions for businesses and organizations — websites, web products, website improvements, and dependable digital and technical support.",
+    "Building practical digital solutions for businesses and organizations including websites, web products, website improvements and dependable digital and technical support.",
 
   /**
    * Production origin. Set NEXT_PUBLIC_SITE_URL on Vercel once the domain is
@@ -42,15 +42,15 @@ export const site = {
 
   about: {
     summary:
-      "I'm Arum Jonathan Nnamdi — a web developer and digital assistant with a background in Computer Engineering. I work with businesses and organizations on the practical side of technology: building websites and web products, improving the ones that already exist, and providing the digital and technical support that keeps them running.",
+      "I am Arum Jonathan Nnamdi, a web developer and digital assistant with a background in Computer Engineering. I work with businesses and organizations on the practical side of technology building websites and web products, improving what already exists and providing the digital and technical support that keeps things running.",
     details:
-      "The common thread is the same on every engagement: understand the need first, then design and build the solution that actually fits — clear, practical, and built to last.",
+      "The common thread is the same on every engagement. I start by understanding the need, then design and build the solution that fits. The result is clear, practical and built to last.",
     focusAreas: [
       "Computer Engineering background",
       "Web development",
       "Digital assistance",
       "Technical support",
-      "Business & project work",
+      "Business and project work",
     ],
   },
 } as const;

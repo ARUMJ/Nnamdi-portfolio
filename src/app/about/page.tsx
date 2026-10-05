@@ -10,7 +10,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Arum Jonathan Nnamdi — a web developer and digital assistant with a Computer Engineering background, working on websites, web products, digital support, and business projects.",
+    "Arum Jonathan Nnamdi, a web developer and digital assistant with a Computer Engineering background, working on websites, web products, digital support and business projects.",
 };
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="About Arum"
-        lead="A practical approach to digital work — for businesses, organizations, and projects that need technology to do a job."
+        lead="A practical approach to digital work for businesses, organizations and projects that need technology to do a job."
       />
 
       <section className="container-page grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
@@ -76,8 +76,8 @@ export default function AboutPage() {
 
       <CtaBand
         eyebrow="Start a project"
-        title="Have a digital problem to solve?"
-        subtitle="Let's turn the requirement into a practical solution."
+        title="Have a digital problem to solve"
+        subtitle="Let us turn the requirement into a practical solution."
         ctaLabel="Start a Project"
         ctaHref="/contact"
       />

@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 
-// Self-hosted variable fonts (npm, no build-time network fetch):
-// Fraunces (display serif, full axis set incl. italic) + Instrument Sans.
-import "@fontsource-variable/fraunces/full.css";
-import "@fontsource-variable/fraunces/full-italic.css";
-import "@fontsource-variable/instrument-sans/wght.css";
+// Self-hosted Merriweather for headings — Build 07 correction
+// Headings: Merriweather (Fontsource) — serif display
+// Body/interface: Arial Rounded MT system stack (no download, see globals.css)
+import "@fontsource/merriweather/400.css";
+import "@fontsource/merriweather/400-italic.css";
+import "@fontsource/merriweather/700.css";
+import "@fontsource/merriweather/700-italic.css";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -17,8 +19,8 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.positioning}`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} | ${site.positioning}`,
+    template: `%s | ${site.name}`,
   },
   description: site.description,
   openGraph: {
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — ${site.positioning}`,
+    title: `${site.name} | ${site.positioning}`,
     description: site.description,
     images: [
       {
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.positioning}`,
+    title: `${site.name} | ${site.positioning}`,
     description: site.description,
     images: ["/og.jpg"],
   },

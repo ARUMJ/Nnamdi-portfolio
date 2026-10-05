@@ -153,9 +153,9 @@
 }
 
 @theme {
-  /* Self-hosted variable fonts (see src/app/layout.tsx imports). */
-  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
-  --font-sans: "Instrument Sans Variable", "Helvetica Neue", system-ui, sans-serif;
+  /* Build 07 correction: Headings Merriweather (Fontsource), Body Arial Rounded MT system stack */
+  --font-display: "Merriweather", Georgia, "Times New Roman", serif;
+  --font-sans: "Arial Rounded MT", "Trebuchet MS", Arial, sans-serif;
 }
 
 /* ------------------------------- base ------------------------------ */
@@ -180,6 +180,15 @@
   body {
     @apply bg-background font-sans text-foreground antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
   }
 
   ::selection {

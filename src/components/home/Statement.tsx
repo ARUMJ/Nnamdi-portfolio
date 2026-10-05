@@ -28,7 +28,7 @@ export function Statement() {
             someone who can handle the practical details.
           </p>
           <p className="mt-4 text-base font-medium leading-relaxed text-foreground sm:text-lg">
-            I help turn those needs into practical digital solutions — starting
+            I help turn those needs into practical digital solutions starting
             with the problem, not the technology.
           </p>
         </div>

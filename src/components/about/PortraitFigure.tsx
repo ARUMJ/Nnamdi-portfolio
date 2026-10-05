@@ -2,9 +2,9 @@ import Image from "next/image";
 
 interface PortraitFigureProps {
   /**
-   * Renders with `priority` (eager, LCP-eligible) for pages where the
+   * Renders with `priority` (eager, LCP eligible) for pages where the
    * portrait sits at the top of the content. Keep it off for
-   * mid-page placements so it loads lazily.
+   * mid page placements so it loads lazily.
    */
   priority?: boolean;
   className?: string;
@@ -13,12 +13,12 @@ interface PortraitFigureProps {
 /**
  * The approved professional portrait in its editorial frame.
  *
- * Treatment: the image itself is untouched — an offset hairline frame and a
- * photo-credit caption give it an intentional, mounted-print presence that
- * matches the site's visual language (hairlines, small caps, warm paper).
+ * Treatment: the image itself is untouched. An offset hairline frame and a
+ * photo credit caption give it an intentional, mounted print presence that
+ * matches the site visual language (hairlines, small caps, warm paper).
  *
  * `width`/`height` match the source (848x1264), so Next.js emits the exact
- * aspect ratio inline — no layout shift while the image loads.
+ * aspect ratio inline. No layout shift while the image loads.
  */
 export function PortraitFigure({ priority = false, className = "" }: PortraitFigureProps) {
   return (
@@ -30,7 +30,7 @@ export function PortraitFigure({ priority = false, className = "" }: PortraitFig
         />
         <Image
           src="/images/portrait-professional-preview.jpg"
-          alt="Arum Jonathan Nnamdi in a charcoal suit and navy tie, arms folded, in a professional full-length studio portrait"
+          alt="Arum Jonathan Nnamdi in a charcoal suit and navy tie, arms folded, in a professional full length studio portrait"
           width={848}
           height={1264}
           priority={priority}
@@ -42,7 +42,7 @@ export function PortraitFigure({ priority = false, className = "" }: PortraitFig
       </div>
       <figcaption className="mt-6 flex items-center justify-between gap-4 border-t border-border pt-4 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-foreground-muted">
         <span>Arum Jonathan Nnamdi</span>
-        <span className="hidden sm:inline">Digital Assistant &amp; Web Developer</span>
+        <span className="hidden sm:inline">Digital Assistant and Web Developer</span>
       </figcaption>
     </figure>
   );
