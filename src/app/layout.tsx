@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 
-// Self-hosted variable fonts — Build 07
-// Display: Plus Jakarta Sans Variable (incl. italic for emphasized headings)
-// Body: Inter Variable — professional, highly readable.
-import "@fontsource-variable/plus-jakarta-sans/wght.css";
-import "@fontsource-variable/plus-jakarta-sans/wght-italic.css";
-import "@fontsource-variable/inter/wght.css";
+// Self-hosted Merriweather for headings — Build 07 correction
+// Headings: Merriweather (Fontsource) — serif display
+// Body/interface: Arial Rounded MT system stack (no download, see globals.css)
+import "@fontsource/merriweather/400.css";
+import "@fontsource/merriweather/400-italic.css";
+import "@fontsource/merriweather/700.css";
+import "@fontsource/merriweather/700-italic.css";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
