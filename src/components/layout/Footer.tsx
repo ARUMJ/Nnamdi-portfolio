@@ -170,11 +170,6 @@ export function Footer() {
                   <Icon />
                   <span>{label}</span>
                 </a>
-                {label === "WhatsApp" && (
-                  <span className="whitespace-nowrap text-xs text-foreground-muted">
-                    {site.contact.whatsappNumber}
-                  </span>
-                )}
               </li>
             ))}
           </ul>
