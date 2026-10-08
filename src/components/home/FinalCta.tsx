@@ -7,7 +7,7 @@ export function FinalCta() {
     <CtaBand
       eyebrow="Let’s talk"
       title="Have a digital project or problem to solve?"
-      subtitle="Let’s discuss what you need and determine the most practical way to move it forward."
+      subtitle="Whether it is a project, an improvement, ongoing support or a professional opportunity, let’s discuss what you need and the most practical way to move it forward."
       ctaLabel={site.primaryCta.label}
       ctaHref={site.primaryCta.href}
       secondaryAction={

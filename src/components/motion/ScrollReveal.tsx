@@ -2,15 +2,27 @@
 
 import { useEffect } from "react";
 
+import {
+  REVEAL_CONTROLLER_ATTRIBUTE,
+  REVEAL_FAILSAFE_CLASS,
+  REVEAL_READY_VALUE,
+} from "@/lib/reveal";
+
 /**
  * Global scroll-reveal controller.
  *
  * Enhances every `.reveal` element (declared in server components) with an
  * IntersectionObserver that adds `.is-visible` when the element enters the
  * viewport. This is the JS fallback for the CSS `view()`-timeline reveal:
- * it works in every browser, respects prefers-reduced-motion, and guarantees
- * content is never hidden if JS fails (noscript + reduced-motion guards in
- * globals.css ensure visibility).
+ * it works in every browser and respects prefers-reduced-motion.
+ *
+ * Fail-open contract (Build 08): content is never hidden because this
+ * controller failed. As soon as reveals are armed — or the moment we decide
+ * they should not animate — `<html data-reveal-controller="ready">` is set,
+ * which cancels the bootstrap failsafe in src/lib/reveal.ts. If the
+ * controller never runs, that failsafe fires on its own and the CSS makes
+ * every reveal target visible. If the failsafe already fired by the time we
+ * arrive, all content is shown immediately and no observers are attached.
  *
  * Stagger: elements may declare `data-reveal-delay="120"` (ms) or
  * `style="--reveal-delay: 120ms"` — the CSS reads the variable for
@@ -41,6 +53,21 @@ export function ScrollReveal() {
         el.classList.add("is-visible");
       }
     };
+
+    /**
+     * Tell the bootstrap that the controller is alive. If the failsafe
+     * already fired (slow or partially failed load), keep everything
+     * visible instead of re-hiding it for an animation.
+     */
+    const markReady = () => {
+      root.setAttribute(REVEAL_CONTROLLER_ATTRIBUTE, REVEAL_READY_VALUE);
+    };
+
+    if (root.classList.contains(REVEAL_FAILSAFE_CLASS)) {
+      showAll();
+      markReady();
+      return;
+    }
 
     const setupObserver = () => {
       if (mediaQuery.matches) {
@@ -100,6 +127,7 @@ export function ScrollReveal() {
     };
 
     let cleanup = setupObserver();
+    markReady();
 
     const onChange = () => {
       // Re-setup on preference change
@@ -108,8 +136,7 @@ export function ScrollReveal() {
         showAll();
         cleanup = () => {};
       } else {
-        // Remove is-visible from below-fold that haven't been scrolled yet? Keep visible ones.
-        // Re-observe hidden ones
+        // Keep already-visible elements; re-observe the rest.
         cleanup = setupObserver();
       }
     };

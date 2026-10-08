@@ -43,8 +43,10 @@ export function Hero() {
             </h1>
 
             <p className="hero-enter hero-enter-2 mt-6 max-w-xl text-base leading-relaxed text-foreground-muted sm:text-lg">
-              I build websites and web products, improve existing digital experiences,
-              and provide dependable digital and technical support.
+              I build and improve websites and web interfaces, and provide the
+              dependable digital and technical support around them. The work is
+              for businesses, schools and organizations that need technology to
+              do a job.
             </p>
 
             <div className="hero-enter hero-enter-3 mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">

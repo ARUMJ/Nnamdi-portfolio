@@ -8,6 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: `${site.url}/sitemap.xml`,
+    // Point crawlers at the sitemap only when a real origin is configured;
+    // otherwise site.url is the local development fallback.
+    ...(site.urlIsConfigured ? { sitemap: `${site.url}/sitemap.xml` } : {}),
   };
 }

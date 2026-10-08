@@ -28,10 +28,10 @@ fs.mkdirSync(artifacts, { recursive: true });
 const routes = ["/", "/solutions", "/work", "/about", "/contact"];
 const projectTitles = [
   "Prince M Furnishing Concept",
-  "D-Connect Delivery Services",
+  "D Connect Delivery Services",
   "PureNest Cleaning Co.",
   "Stayora",
-  "PNK / Clarean Peekan",
+  "PNK and Clarean Peekan",
 ];
 
 const log = [];
@@ -391,7 +391,9 @@ const withBrowser = async (label, fn, attempt = 1) => {
       for (const title of projectTitles) {
         checks(
           `[${scheme} /work] project visible: ${title}`,
-          await page.locator(`h3:has-text("${title}")`).first().isVisible(),
+          // Level-agnostic on purpose: Build 08 moved /work project titles
+          // from h3 to h2 so the outline is h1 -> h2 -> h3.
+          await page.getByRole("heading", { name: title, exact: true }).first().isVisible(),
         );
       }
 
@@ -528,7 +530,7 @@ const withBrowser = async (label, fn, attempt = 1) => {
         description: document.querySelector('meta[name="description"]')?.content || "",
         ogType: document.querySelector('meta[property="og:type"]')?.content,
       }));
-      checks(`[${scheme}] SEO: title`, head.title === "Work — Arum Jonathan Nnamdi", head.title);
+      checks(`[${scheme}] SEO: title`, head.title === "Work | Arum Jonathan Nnamdi", head.title);
       checks(`[${scheme}] SEO: description`, head.description.startsWith("Projects by Arum Jonathan Nnamdi"));
       checks(`[${scheme}] SEO: og intact`, head.ogType === "website");
       await context.close();

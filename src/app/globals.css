@@ -328,6 +328,24 @@ noscript .reveal {
   transform: none !important;
 }
 
+/* ------------------------------------------------------------------ */
+/* Fail-open guard — Build 08                                          */
+/*                                                                     */
+/* The controller marks <html data-reveal-controller="ready"> once the  */
+/* observers are armed. If that never happens (bundle failure, blocked  */
+/* script, an exception), the bootstrap timer in src/lib/reveal.ts adds */
+/* .reveal-failsafe and every reveal target is forced visible.         */
+/* Content is never a prerequisite of the animation.                   */
+/* ------------------------------------------------------------------ */
+html.reveal-failsafe .reveal,
+html.reveal-failsafe .reveal[data-reveal],
+html.reveal-failsafe .media-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   /* --------------------------------------------------------------
      Hero enter — staged load-in (kept from Build 05, slightly refined)
