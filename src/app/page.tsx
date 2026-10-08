@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { AboutPreview } from "@/components/home/AboutPreview";
 import { FinalCta } from "@/components/home/FinalCta";
 import { Hero } from "@/components/home/Hero";
@@ -5,6 +7,16 @@ import { Process } from "@/components/home/Process";
 import { SelectedWork } from "@/components/home/SelectedWork";
 import { SolutionsPreview } from "@/components/home/SolutionsPreview";
 import { Statement } from "@/components/home/Statement";
+import { site } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: `${site.name} | ${site.positioning}`,
+  description:
+    "Web developer and digital assistant building practical digital solutions for businesses and organizations: responsive websites, web interfaces, website improvements and dependable digital and technical support.",
+  path: "/",
+  absoluteTitle: true,
+});
 
 /**
  * Homepage — composition only. Each section is an independent, reusable

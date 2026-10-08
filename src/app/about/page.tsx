@@ -5,13 +5,16 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { CtaBand } from "@/components/ui/CtaBand";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { site } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Arum Jonathan Nnamdi, a web developer and digital assistant with a Computer Engineering background, working on websites, web products, digital support and business projects.",
-};
+    "Arum Jonathan Nnamdi — a web developer and digital assistant with a Computer Engineering background. Web development, technical support, learning systems, coding instruction and practical digital work for businesses, schools and organizations.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -19,7 +22,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="About Arum"
-        lead="A practical approach to digital work for businesses, organizations and projects that need technology to do a job."
+        lead="Web development, digital assistance and technical support — practical technology work for businesses, schools and organizations."
       />
 
       <section className="container-page grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-16">
@@ -42,6 +45,9 @@ export default function AboutPage() {
             </p>
             <p className="mt-4 text-base leading-relaxed text-foreground-muted">
               {site.about.details}
+            </p>
+            <p className="mt-6 border-l-2 border-accent pl-4 font-display text-lg tracking-tight text-foreground">
+              {site.about.positioning}
             </p>
           </div>
 
@@ -74,9 +80,40 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section aria-labelledby="capabilities-heading" className="border-t border-border bg-surface/50">
+        <div className="container-page py-16 md:py-24">
+          <div className="reveal">
+            <SectionHeading
+              id="capabilities-heading"
+              eyebrow="What I bring"
+              title="Practical work, clearly defined"
+              lead="The capabilities behind the two service pathways — the same work, described as what it involves rather than as categories."
+            />
+          </div>
+
+          <ul className="mt-12 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {site.about.capabilities.map((capability, index) => (
+              <li
+                key={capability.title}
+                className="reveal border-t border-border pt-5"
+                data-reveal-delay={String(index * 60)}
+                style={{ ["--reveal-delay" as string]: `${index * 60}ms` }}
+              >
+                <h3 className="font-display text-lg font-medium tracking-tight text-foreground">
+                  {capability.title}
+                </h3>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-foreground-muted">
+                  {capability.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <CtaBand
         eyebrow="Start a project"
-        title="Have a digital problem to solve"
+        title="Have a digital problem to solve?"
         subtitle="Let us turn the requirement into a practical solution."
         ctaLabel="Start a Project"
         ctaHref="/contact"

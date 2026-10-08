@@ -23,13 +23,14 @@ export function Statement() {
           style={{ ["--reveal-delay" as string]: "120ms" }}
         >
           <p className="text-base leading-relaxed text-foreground-muted sm:text-lg">
-            A professional website. A clearer digital experience. Technical help
-            when something stops working. Businesses and organizations need
+            A professional website. A clearer digital experience. A catalogue, a
+            portal or a tool that carries a real idea. Technical help when
+            something stops working. Businesses, schools and organizations need
             someone who can handle the practical details.
           </p>
           <p className="mt-4 text-base font-medium leading-relaxed text-foreground sm:text-lg">
-            I help turn those needs into practical digital solutions starting
-            with the problem, not the technology.
+            I build, improve and support those solutions, starting with the
+            problem rather than the technology.
           </p>
         </div>
       </div>

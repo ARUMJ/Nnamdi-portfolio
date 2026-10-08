@@ -16,8 +16,8 @@ const films = [
   },
   {
     slug: "d-connect-delivery-services",
-    title: "D-Connect Delivery Services",
-    prefix: "D-Connect website",
+    title: "D Connect Delivery Services",
+    prefix: "D Connect website",
   },
   {
     slug: "purenest-cleaning-co",
@@ -27,8 +27,8 @@ const films = [
   { slug: "stayora", title: "Stayora", prefix: "Stayora frontend demo" },
   {
     slug: "pnk-clarean-peekan",
-    title: "PNK / Clarean Peekan",
-    prefix: "PNK / Clarean development preview",
+    title: "PNK and Clarean Peekan",
+    prefix: "PNK and Clarean development preview",
   },
 ];
 const artifacts =

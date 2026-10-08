@@ -19,7 +19,7 @@ export function SelectedWork() {
               id="selected-work-heading"
               eyebrow="Selected work"
               title="Digital solutions and concepts"
-              lead="A selection of digital projects and concepts I have worked on. Explore the real interfaces, on desktop and mobile."
+              lead="Five projects, each labelled for what it is — concept, prototype or deployed demo — with the live site to open and a plain account of what I built and delivered."
             />
           </div>
           <div

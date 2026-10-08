@@ -40,8 +40,13 @@ Copy `.env.example` to `.env.local` and set the production origin:
 NEXT_PUBLIC_SITE_URL=https://your-domain.com
 ```
 
-Until a domain is configured the app falls back to a local origin; the
-sitemap should not be submitted to search engines until this is set.
+The origin is resolved in `src/data/site.ts`, most explicit first:
+`NEXT_PUBLIC_SITE_URL` → Vercel's `VERCEL_PROJECT_PRODUCTION_URL` →
+Vercel's `VERCEL_URL` → the local development origin. No domain is invented:
+in a production build with none of these set, absolute canonical and Open
+Graph URLs, the `robots.txt` sitemap line and sitemap entries are omitted
+rather than published as `http://localhost:3000`.
+Set `NEXT_PUBLIC_SITE_URL` before submitting the sitemap to search engines.
 
 ## Structure
 

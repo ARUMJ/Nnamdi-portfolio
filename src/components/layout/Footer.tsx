@@ -70,23 +70,17 @@ function XIcon() {
   );
 }
 
-const socialLinks = [
-  {
-    label: "WhatsApp",
-    href: site.contact.whatsappUrl,
-    Icon: WhatsAppIcon,
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/gospel_j1?stkn=MTdsODV6dHBpY2xnag==",
-    Icon: InstagramIcon,
-  },
-  {
-    label: "X",
-    href: "https://x.com/Jona_G4",
-    Icon: XIcon,
-  },
-] as const;
+/** Icon per verified profile. Labels come from site.social (single source). */
+const socialIcons = {
+  WhatsApp: WhatsAppIcon,
+  Instagram: InstagramIcon,
+  X: XIcon,
+} as const;
+
+const socialLinks = site.social.map((profile) => ({
+  ...profile,
+  Icon: socialIcons[profile.label],
+}));
 
 /** Site footer: identity, navigation, project CTA and social channels. */
 export function Footer() {

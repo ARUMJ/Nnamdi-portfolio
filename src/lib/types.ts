@@ -28,6 +28,39 @@ export interface Solution {
 }
 
 /* -------------------------------------------------------------------- */
+/* Service pathways — Build 08                                          */
+/* -------------------------------------------------------------------- */
+
+/**
+ * A primary service pathway: the two clear routes through the work
+ * (Web & Digital Development / Digital Assistance & Technical Support).
+ * Each pathway owns the solution areas that sit inside it, so the
+ * homepage index, the /solutions page and the structured data all read
+ * from one source.
+ */
+export interface ServicePathway {
+  id: string;
+  /** Editorial number, matching the site's numbered-row language. */
+  number: string;
+  title: string;
+  icon: SolutionIconName;
+  /**
+   * Visual treatment. "inverse" is the cinematic dark band/card already
+   * used by the Process and CTA sections — it keeps the two pathways
+   * clearly distinguishable without inventing a new visual language.
+   */
+  tone: "default" | "inverse";
+  /** One or two lines for the pathway summary card. */
+  summary: string;
+  /** Longer framing for the /solutions page. */
+  detail: string;
+  /** Concrete capabilities. Only work actually done on these projects. */
+  capabilities: string[];
+  /** The solution areas that belong to this pathway. */
+  areas: Solution[];
+}
+
+/* -------------------------------------------------------------------- */
 /* Media model                                                          */
 /* -------------------------------------------------------------------- */
 
@@ -111,6 +144,51 @@ export function isImageMedia(media: ProjectMedia): media is ProjectImage {
  * All slots are optional; branded placeholders render until real assets
  * are supplied. Unknown fields stay `undefined` — they are not fabricated.
  */
+/**
+ * Honest delivery status. Every project states which of these it is, so a
+ * concept is never read as client work and a prototype is never read as a
+ * production system.
+ */
+export type ProjectStatus =
+  | "Concept"
+  | "Prototype"
+  | "Deployed Demo"
+  | "Production Website";
+
+/**
+ * The four-part project proof, so every project answers the same
+ * questions: why it exists, what I did, what was produced, and what it
+ * is not. `contributionSummary` is the one-line version shown on the
+ * compact homepage cards; the lists carry the detail on /work.
+ */
+export interface ProjectProof {
+  /** What problem or business idea the project set out to address. */
+  purpose: string;
+  /** One-line version of the contribution, for compact cards. */
+  contributionSummary: string;
+  /** What I personally built, designed, implemented or contributed. */
+  contribution: string[];
+  /** What functionality or experience was actually produced. */
+  delivered: string[];
+  /** Optional honest scope note: what the project does not include. */
+  notIncluded?: string[];
+}
+
+/** One demonstrated area inside a case study. */
+export interface ProjectCaseStudySection {
+  title: string;
+  description: string;
+}
+
+/**
+ * An evidence-based case study for a single project: what the work
+ * demonstrates, framed so nothing beyond the built prototype is implied.
+ */
+export interface ProjectCaseStudy {
+  summary: string;
+  demonstrates: ProjectCaseStudySection[];
+}
+
 export interface Project {
   id: string;
   slug: string;
@@ -124,6 +202,12 @@ export interface Project {
   role?: string;
   technologies?: string[];
   features?: string[];
+  /** Concept | Prototype | Deployed Demo | Production Website. */
+  status?: ProjectStatus;
+  /** Purpose, contribution, delivery and scope — see ProjectProof. */
+  proof?: ProjectProof;
+  /** Optional deeper case study (currently used by D Connect). */
+  caseStudy?: ProjectCaseStudy;
   /** Hero media for a case-study page: a film (with poster) or a still. */
   heroMedia?: ProjectMedia;
   /** Media for the showcase frames on the homepage and /work. */
